@@ -1,9 +1,9 @@
 ---
-import GitHub from "./icons/GitHub.astro"
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
 import Link from "./icons/Link.astro"
-import LinkButton from "./LinkButton.astro"
+import Button from "./Button.astro"
+import Modal from "./Modal.astro";
 
 const TAGS = {
   NEXT: {
@@ -26,6 +26,7 @@ const PROJECTS = [
     github: "https://github.com/pheralb/svgl",
     image: "/projects/rimac.png",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
+    id: "1"
   },
   {
     title: "AdventJS - Retos de programación con JavaScript y TypeScript",
@@ -34,13 +35,14 @@ const PROJECTS = [
     link: "https://adventjs.dev",
     image: "/projects/adventjs.webp",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
+    id: "2"
   },
 ]
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    PROJECTS.map(({ image, title, description, tags, id }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
@@ -68,20 +70,26 @@ const PROJECTS = [
 
       <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
       <footer class="flex items-end justify-start mt-4 gap-x-4">
-          {github && (
-            <LinkButton href={github}>
-              <GitHub class="size-6" />
-              Code
-              
-            </LinkButton>
-          )}
-          {link && (
-            <LinkButton href={link}>
+            <Button id={id}>
               <Link class="size-4" />
               Preview
-            </LinkButton>
-          )}
+            </Button>
         </footer>
+
+        <Modal id=`extralarge-modal-${id}`>
+            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                El concepto de átomo existe desde la antigua Grecia, propuesto por los filósofos griegos Demócrito, Leucipo y Epicuro, sin embargo, no se generó el concepto por medio de la experimentación sino como una necesidad filosófica que explicara la realidad, ya que, como proponían estos pensadores, «la materia no puede dividirse indefinidamente, por lo que debe existir una unidad o bloque indivisible e indestructible que al combinarse de diferentes formas, creara todos los cuerpos macroscópicos que nos rodean»,21​ conceptos muy vigentes, ya que la propiedad de indestructibilidad e indivisibilidad fueron el «pilar fundamental de la química y física moderna».
+
+                El siguiente avance significativo no se realizó hasta que en 1773 el químico francés Antoine-Laurent de Lavoisier postuló su enunciado: «La materia no se crea ni se destruye, simplemente se transforma». La ley de conservación de la masa o ley de conservación de la materia; demostrada más tarde por los experimentos del químico inglés John Dalton quien en 1804, luego de medir la masa de los reactivos y productos de una reacción, concluyó que las sustancias están compuestas de átomos esféricos idénticos para cada elemento, pero diferentes de un elemento a otro.22​
+
+                Luego, en 1811, el físico italiano Amedeo Avogadro postuló que a una temperatura, presión y volumen dados, un gas contiene siempre el mismo número de partículas, sean átomos o moléculas, independientemente de la naturaleza del gas, proponiendo al mismo tiempo la hipótesis de que los gases son moléculas poliatómicas, con lo que se comenzó a distinguir entre átomos y moléculas.23​
+
+                El químico ruso Dmítri Ivánovich Mendeléyev creó en 1869 una clasificación de los elementos químicos en orden creciente de su masa atómica, remarcando que existía una periodicidad en las propiedades químicas. Este trabajo fue el precursor de la tabla periódica de los elementos como la conocemos actualmente.24​
+
+                La visión moderna de su estructura interna tuvo que esperar hasta el experimento de Rutherford en 1911. Este experimento llevó al modelo atómico de Rutherford que no podía explicar adecuadamente la estabilidad de los átomos ni los espectros atómicos, por lo que Niels Bohr formuló su modelo atómico de Bohr en términos heurísticos, que daba cuenta de esos hechos sin explicarlos convenientemente. Posteriores descubrimientos científicos, como la teoría cuántica, y avances tecnológicos, como el microscopio electrónico, han permitido conocer con mayor detalle las propiedades físicas y químicas de los átomos.2
+            </p>
+        </Modal>
+
     </div>
   </div>
 </article>
@@ -89,5 +97,18 @@ const PROJECTS = [
   }
 </div>
 
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const openButtons = document.querySelectorAll('.open-modal');
+    openButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modalId = button.getAttribute('id');
+        const modal = document.getElementById(`extralarge-modal-${modalId}`);
+        if (modal) modal.classList.remove('hidden');
+      });
+    });
+  });
+</script>
 
 
