@@ -1,26 +1,11 @@
-<div class="grid grid-cols-2 gap-6">
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="/projects/rimac.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="/projects/portal.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="/projects/firecity.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://pagedone.io/asset/uploads/1688029384.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://pagedone.io/asset/uploads/1688029384.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://pagedone.io/asset/uploads/1688029384.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://pagedone.io/asset/uploads/1688029384.png" alt="Gallery image" />
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://pagedone.io/asset/uploads/1688029384.png" alt="Gallery image" />
-    </div>
+---
+const { urls = [] } = Astro.props;
+---
+
+<div class="grid grid-cols-1 gap-6">
+    {urls.map((url, index) => (
+      <div key={index}>
+          <img class="h-auto max-w-full rounded-lg" src={url} alt={`Gallery image ${index + 1}`} />
+      </div>
+    ))}
 </div>

@@ -28,7 +28,8 @@ const PROJECTS = [
     github: "https://github.com/pheralb/svgl",
     image: "/projects/rimac.png",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
-    id: "1"
+    id: "1",
+    images: ["/projects/rimac.png", "/projects/portal.png"]
   },
   {
     title: "AdventJS - Retos de programación con JavaScript y TypeScript",
@@ -37,14 +38,15 @@ const PROJECTS = [
     link: "https://adventjs.dev",
     image: "/projects/adventjs.webp",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
-    id: "2"
+    id: "2",
+    images: ["/projects/rimac.png", "/projects/portal.png", "/projects/firecity.png"]
   },
 ]
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, id }) => (
+    PROJECTS.map(({ image, title, description, tags, id, images }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
@@ -81,7 +83,7 @@ const PROJECTS = [
         <Modal id=`extralarge-modal-${id}` title={title}>
             <div class="flex flex-col lg:flex-row h-full">
                 <div class="w-full lg:w-3/5 p-4 overflow-y-auto flex-1">
-                    <Gallery></Gallery>
+                    <Gallery urls = {images}></Gallery>
                 </div>
                 <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
                     <p class="text-sm text-gray-500">
