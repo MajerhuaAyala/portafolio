@@ -3,6 +3,9 @@ import Link from "./icons/Link.astro"
 import Button from "./Button.astro"
 import Modal from "./Modal.astro";
 import Gallery from "../components/Gallery.astro"
+import Utils from "./getImages"
+const imagesToSEV = await new Utils().readFiles('sev')
+const imagesFireCity = await new Utils().readFiles('firecity')
 
 const PROJECTS = [
   {
@@ -29,9 +32,9 @@ const PROJECTS = [
           challenges: ["Tener la data actualizada en tiempo real"],
           technologies: ["ECS", "ECR"]
       },
-    image: "/projects/sev/login.png",
+    image: `/projects/login.png`,
     id: "2",
-    images: ["/projects/sev/panel.webp"]
+    images: imagesToSEV
   },
     {
         title: "Fire city",
@@ -45,7 +48,7 @@ const PROJECTS = [
         },
         image: "/projects/sev/login.png",
         id: "3",
-        images: ["/projects/sev/panel.webp"]
+        images: imagesFireCity
     },
 ]
 ---
@@ -134,6 +137,8 @@ const PROJECTS = [
       });
     });
   });
+
+
 </script>
 
 
