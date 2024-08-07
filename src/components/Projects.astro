@@ -1,50 +1,58 @@
 ---
-import NextJS from "./icons/NextJS.astro"
-import Tailwind from "./icons/Tailwind.astro"
 import Link from "./icons/Link.astro"
 import Button from "./Button.astro"
 import Modal from "./Modal.astro";
 import Gallery from "../components/Gallery.astro"
 
-const TAGS = {
-  NEXT: {
-    name: "Next.js",
-    class: "bg-black text-white",
-    icon: NextJS,
-  },
-  TAILWIND: {
-    name: "Tailwind CSS",
-    class: "bg-[#003159] text-white",
-    icon: Tailwind,
-  },
-}
 const PROJECTS = [
   {
-    title: "SVGL - A beautiful library with SVG logos",
-    description:
-      "Biblioteca de logos SVG de las marcas más populares. +10k visitas al mes. +2K svgs descargados. Creado desde cero con Next.js, React y Tailwind CSS.",
+    title: "Rimac MAD",
+    description: "Plataforma de subastas de casos de salud, categorizados como código rojo, emergencia o urgencia, con seguimiento en tiempo real de cada caso.",
+      summary: {
+        objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+        functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+        challenges: ["Tener la data actualizada en tiempo real"],
+        technologies: ["ECS", "ECR"]
+      },
     link: "https://svgl.vercel.app/",
     github: "https://github.com/pheralb/svgl",
     image: "/projects/rimac.png",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
     id: "1",
     images: ["/projects/rimac.png", "/projects/portal.png"]
   },
   {
     title: "Rimac SEV",
-    description:
-      "Plataforma de susbastas de casos de salud",
+    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+      summary: {
+          objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+          functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+          challenges: ["Tener la data actualizada en tiempo real"],
+          technologies: ["ECS", "ECR"]
+      },
     image: "/projects/sev/login.png",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
     id: "2",
     images: ["/projects/sev/panel.webp"]
   },
+    {
+        title: "Fire city",
+        description:
+            "Plataforma web para monitoreo en tiempo real de sensores ambientales (humo, fuego, humedad, luz) con notificaciones instantáneas ante cualquier anomalía.",
+        summary: {
+            objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+            functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+            challenges: ["Tener la data actualizada en tiempo real"],
+            technologies: ["ECS", "ECR"]
+        },
+        image: "/projects/sev/login.png",
+        id: "3",
+        images: ["/projects/sev/panel.webp"]
+    },
 ]
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, id, images }) => (
+    PROJECTS.map(({ image, title, description, tags, id, images, summary }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
@@ -57,19 +65,6 @@ const PROJECTS = [
       {title}
     </h3>
     <div class="flex flex-wrap mt-2">
-      <ul class="flex flex-row mb-2 gap-x-2">
-          {tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-              >
-                <tag.icon class="size-4" />
-                {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul>
-
       <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
       <footer class="flex items-end justify-start mt-4 gap-x-4">
             <Button id={id}>
@@ -84,9 +79,36 @@ const PROJECTS = [
                     <Gallery urls = {images}></Gallery>
                 </div>
                 <div class="w-full lg:w-1/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
-                    <p class="text-1xl text-gray-500">
-                      {description}
-                    </p>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Objetivo:</h4>
+                            <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.functionalities.map(func => (
+                                        <li>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.challenges.map(func => (
+                                        <li key={func}>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.technologies.map(func => (
+                                        <li key={func}>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </Modal>
