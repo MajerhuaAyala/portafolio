@@ -18,7 +18,7 @@ jobs:
           node-version: '20'  # Especifica la versión de Node.js que deseas usar
 
       - name: Set up pnpm
-        run: npm install -g pnpm@5.0.5  # Instala la versión específica de pnpm que deseas usar
+        run: npm install -g pnpm@10.8.2  # Instala la versión específica de pnpm que deseas usar
 
       - name: Install dependencies and build your site
         run: |
