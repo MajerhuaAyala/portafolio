@@ -10,19 +10,20 @@ const imagesToSEV = await new Utils().readFiles('sev', baseUrl)
 const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
 
 const PROJECTS = [
-  {
-    title: "Rimac MAD",
-    description: "Plataforma de subastas de casos de salud corporal, categorizados como código rojo, emergencia o urgencia, con seguimiento en tiempo real de cada caso.",
-      summary: {
-        objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-        functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-        challenges: ["Tener la data actualizada en tiempo real"],
-        technologies: ["ECS", "ECR"]
-      },
-    image: `${baseUrl}/projects/rimac.png`,
-    id: "1",
-    images: imagesFireCity
-  },
+    {
+        title: "Fire city",
+        description:
+            "Plataforma web para monitoreo en tiempo real de sensores ambientales (humo, fuego, humedad, luz) con notificaciones instantáneas ante cualquier anomalía.",
+        summary: {
+            objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+            functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+            challenges: ["Tener la data actualizada en tiempo real"],
+            technologies: ["ECS", "ECR"]
+        },
+        image: `${baseUrl}/projects/firecity.png`,
+        id: "3",
+        images: imagesFireCity
+    },
   {
     title: "Rimac SEV",
     description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
@@ -35,21 +36,7 @@ const PROJECTS = [
     image: `${baseUrl}/projects/sev/login.png`,
     id: "2",
     images: imagesToSEV
-  },
-    {
-        title: "Fire city",
-        description:
-            "Plataforma web para monitoreo en tiempo real de sensores ambientales (humo, fuego, humedad, luz) con notificaciones instantáneas ante cualquier anomalía.",
-        summary: {
-            objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-            functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-            challenges: ["Tener la data actualizada en tiempo real"],
-            technologies: ["ECS", "ECR"]
-        },
-        image: `${baseUrl}/projects/sev/login.png`,
-        id: "3",
-        images: imagesFireCity
-    },
+  }
 ]
 ---
 
