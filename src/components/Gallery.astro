@@ -3,8 +3,8 @@ const { urls = [] } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 gap-6">
-    {urls.map((url, index) => (
-      <div key={index}>
+    {urls.map((url: string, index: number) => (
+      <div>
           <img class="h-auto max-w-full rounded-lg" src={url} alt={`Gallery image ${index + 1}`} />
       </div>
     ))}
