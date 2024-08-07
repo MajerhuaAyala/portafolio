@@ -1,21 +1,22 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro"
+import config from "./confing"
 
 const navItems = [
   {
     title: "Experiencia",
     label: "experiencia",
-    url: "/#experiencia",
+    url: `${config.BASE_URL}/#experiencia`,
   },
   {
     title: "Proyectos",
     label: "proyectos",
-    url: "/#proyectos",
+    url: `${config.BASE_URL}/#proyectos`,
   },
   {
     title: "Sobre mí",
     label: "sobre-mi",
-    url: "/#sobre-mi",
+    url: `${config.BASE_URL}/#sobre-mi`,
   },
   {
     title: "Contacto",
