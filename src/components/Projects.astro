@@ -9,6 +9,7 @@ const baseUrl = config.BASE_URL
 const imagesToSEV = await new Utils().readFiles('sev', baseUrl)
 const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
 const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
+let id = 1
 
 const PROJECTS = [
     {
@@ -22,7 +23,7 @@ const PROJECTS = [
             technologies: ["ECS", "ECR"]
         },
         image: `${baseUrl}/projects/firecity.png`,
-        id: "1",
+        id: id++,
         images: imagesFireCity
     },
   {
@@ -35,7 +36,20 @@ const PROJECTS = [
           technologies: ["ECS", "ECR"]
       },
     image: `${baseUrl}/projects/sev/login.png`,
-    id: "2",
+    id: id++,
+    images: imagesToSEV
+  },
+  {
+    title: "Rimac MAD",
+    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+      summary: {
+          objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+          functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+          challenges: ["Tener la data actualizada en tiempo real"],
+          technologies: ["ECS", "ECR"]
+      },
+    image: `${baseUrl}/projects/sev/login.png`,
+    id: id++,
     images: imagesToSEV
   },
   {
@@ -48,9 +62,36 @@ const PROJECTS = [
       technologies: ["ECS", "ECR"]
     },
     image: `${baseUrl}/projects/facturador.png`,
-    id: "3",
+    id: id++,
     images: imagesFacturador
-  }
+  },
+  {
+    title: "Medical",
+    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    summary: {
+      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+      challenges: ["Tener la data actualizada en tiempo real"],
+      technologies: ["ECS", "ECR"]
+    },
+    image: `${baseUrl}/projects/facturador.png`,
+    id: id++,
+    images: imagesFacturador
+  },
+
+  {
+    title: "Tytroll",
+    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    summary: {
+      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+      challenges: ["Tener la data actualizada en tiempo real"],
+      technologies: ["ECS", "ECR"]
+    },
+    image: `${baseUrl}/projects/facturador.png`,
+    id: id++,
+    images: imagesFacturador
+  },
 ]
 ---
 
@@ -122,9 +163,9 @@ const PROJECTS = [
     ))
   }
 
-<div id="elementosRestantes" class="hidden">
+<div id="elementosRestantes" class="hidden flex flex-col gap-y-16">
   {PROJECTS.slice(2).map(({image, title, description, id, images, summary}) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 transition-all duration-500">
+    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 transition-all duration-500 ">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
       <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" src={image} />
@@ -208,6 +249,7 @@ const PROJECTS = [
       button.addEventListener('click', () => {
         const modalId = button.getAttribute('id');
         const modal = document.getElementById(`extralarge-modal-${modalId}`);
+        console.log("Modal: ", modal)
         if (modal){
           modal.classList.remove('hidden');
           document.body.classList.add('overflow-y-hidden');
