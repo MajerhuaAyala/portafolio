@@ -8,6 +8,7 @@ import config from "./confing"
 const baseUrl = config.BASE_URL
 const imagesToSEV = await new Utils().readFiles('sev', baseUrl)
 const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
+const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
 
 const PROJECTS = [
     {
@@ -21,7 +22,7 @@ const PROJECTS = [
             technologies: ["ECS", "ECR"]
         },
         image: `${baseUrl}/projects/firecity.png`,
-        id: "3",
+        id: "1",
         images: imagesFireCity
     },
   {
@@ -36,6 +37,19 @@ const PROJECTS = [
     image: `${baseUrl}/projects/sev/login.png`,
     id: "2",
     images: imagesToSEV
+  },
+  {
+    title: "Facturador",
+    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    summary: {
+      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
+      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
+      challenges: ["Tener la data actualizada en tiempo real"],
+      technologies: ["ECS", "ECR"]
+    },
+    image: `${baseUrl}/projects/facturador.png`,
+    id: "3",
+    images: imagesFacturador
   }
 ]
 ---
