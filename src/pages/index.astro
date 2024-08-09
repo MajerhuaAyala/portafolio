@@ -9,7 +9,9 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro"
 import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
 import Hero from "@/components/Hero.astro"
-import ButtonDownload from "../components/ButtonDownload.astro";
+import SocialPill from "../components/SocialPill.astro";
+import CV from "../components/icons/CV.astro"
+import config from "../components/confing"
 ---
 
 <Layout
@@ -24,13 +26,16 @@ import ButtonDownload from "../components/ButtonDownload.astro";
     </SectionContainer>
     <div class="space-y-24">
     <SectionContainer id="experiencia">
-        <ButtonDownload></ButtonDownload>
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <Briefcase class="size-8" />
-        Experiencia laboral
-      </h2>
+        <div class="flex items-center gap-4">
+            <h2 class="flex items-center text-3xl font-semibold text-black/80 dark:text-white">
+                <Briefcase class="size-8 mr-3" />
+                Experiencia laboral
+            </h2>
+            <SocialPill href=`${config.BASE_URL}/cv.pdf` download>
+                <CV/>
+                Descargar curriculum
+            </SocialPill>
+        </div>
       <Experience />
     </SectionContainer>
 
