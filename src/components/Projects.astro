@@ -56,7 +56,7 @@ const PROJECTS = [
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, id, images, summary }) => (
+    PROJECTS.slice(0,2).map(({ image, title, description, id, images, summary }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
@@ -121,6 +121,83 @@ const PROJECTS = [
 </article>
     ))
   }
+
+<div id="elementosRestantes" class="hidden space-y-2 mt-4">
+  {PROJECTS.slice(2).map(({image, title, description, id, images, summary}) => (
+    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+  <div class="w-full md:w-1/2">
+    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+    </div>
+  </div>
+
+  <div class="w-full md:w-1/2 md:max-w-lg">
+    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+      {title}
+    </h3>
+    <div class="flex flex-wrap mt-2">
+      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+      <footer class="flex items-end justify-start mt-4 gap-x-4">
+            <Button id={id}>
+              <Link class="size-4" />
+              Preview
+            </Button>
+        </footer>
+
+        <Modal id=`extralarge-modal-${id}` title={title}>
+            <div class="flex flex-col lg:flex-row h-full">
+                <div class="w-full lg:w-4/5 p-4 overflow-y-auto flex-1">
+                    <Gallery urls = {images}></Gallery>
+                </div>
+                <div class="w-full lg:w-1/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Objetivo:</h4>
+                            <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.functionalities.map(func => (
+                                        <li>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.challenges.map(func => (
+                                        <li>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                                {summary.technologies.map(func => (
+                                        <li>{func}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Modal>
+    </div>
+  </div>
+</article>
+  ))}
+</div>
+
+{PROJECTS.length > 2 && (
+  <button
+          id="mostrarMas"
+          class="inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-gray-300 rounded-full dark:bg-gray-800 dark:border-gray-600 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-700 group max-w-fit hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+  >
+      Mostrar restantes
+  </button>
+)}
+
 </div>
 
 
@@ -139,6 +216,17 @@ const PROJECTS = [
     });
   });
 
+  const botonMostrarMas = document.getElementById('mostrarMas');
+  const elementosRestantes = document.getElementById('elementosRestantes');
+
+  if (botonMostrarMas && elementosRestantes) {
+    botonMostrarMas.addEventListener('click', () => {
+      elementosRestantes.classList.toggle('hidden');
+      botonMostrarMas.textContent = elementosRestantes.classList.contains('hidden')
+        ? `Mostrar restantes`
+        : 'Mostrar menos';
+    });
+  }
 
 </script>
 
