@@ -9,6 +9,8 @@ const baseUrl = config.BASE_URL
 const imagesToSEV = await new Utils().readFiles('sev', baseUrl)
 const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
 const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
+const imagesTytroll = await new Utils().readFiles('tytroll', baseUrl)
+const imagesMedical = await new Utils().readFiles('medical', baseUrl)
 let id = 1
 
 const PROJECTS = [
@@ -100,6 +102,8 @@ const PROJECTS = [
             "Amazon Elastic Container Service (Amazon ECS)",
             "Amazon DynamoDB",
             "Amazon RDS (MySQl)",
+            "Docker",
+            "Redis",
             "API Gateway",
             "Amazon S3",
             "SNS",
@@ -123,19 +127,6 @@ const PROJECTS = [
     images: imagesToSEV
   },
   {
-    title: "Rimac MAD",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
-      summary: {
-          objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-          functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-          challenges: ["Tener la data actualizada en tiempo real"],
-          technologies: ["ECS", "ECR"]
-      },
-    image: `${baseUrl}/projects/sev/login.png`,
-    id: id++,
-    images: imagesToSEV
-  },
-  {
     title: "Facturador",
     description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
     summary: {
@@ -150,30 +141,93 @@ const PROJECTS = [
   },
   {
     title: "Medical",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    description: "El sistema optimiza la atención médica al centralizar los precios, seguimiento de ambulancias, gestión de casos y notificaciones, mejorando la respuesta y la satisfacción del paciente.",
     summary: {
-      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-      challenges: ["Tener la data actualizada en tiempo real"],
-      technologies: ["ECS", "ECR"]
+      objective: "El sistema resuelve la ineficiencia en la atención médica al centralizar la gestión de recursos, precios, y seguimiento de casos en tiempo real, optimizando la respuesta y mejorando la satisfacción del paciente.",
+      functionalities: [
+        "Gestión de precios de medicamentos",
+        "Gestión de doctores",
+        "Gestión de casos",
+        "Gestión de clientes",
+        "Gestión de tipo de atención",
+        "Reportes",
+        "Monitoreo de ambulancias en tiempo real",
+        "Notificaciones y alertas",
+        "Asignación de proveedores",
+        "Integraciones externas",
+        "Gestión de incidencias y soporte"
+      ] ,
+      challenges: [
+        "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
+        "Asegurar que los datos sensibles, como la información del paciente",
+        "Rendimiento y escalabilidad",
+        "Sincronización y actualización de los datos en tiempo real"
+      ],
+      technologies: [
+        "AWS Lambda",
+        "Amazon API Gateway",
+        "Amazon RDS/Aurora",
+        "Amazon S3",
+        "Amazon CloudWatch",
+        "Cognito",
+        "Code pipeline",
+        "Jenkins",
+        "SNS",
+        "SQS",
+        "AWS Step Function",
+        "Cloudformation",
+        "Firebase Realtime Database",
+        "Firebase Cloud Messaging (FCM)",
+        "Docker",
+        "Amazon Elastic Container Service (Amazon ECS)",
+        "NestJS",
+        "Serverless",
+        "Event Bridge"
+      ]
     },
     image: `${baseUrl}/projects/medical-login.png`,
     id: id++,
-    images: imagesFacturador
+    images: imagesMedical
   },
 
   {
     title: "Tytroll",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    description: "El sistema gestiona el registro de ingresos, visitas, eventos, documentos e inventarios, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad en la empresa.",
     summary: {
-      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-      challenges: ["Tener la data actualizada en tiempo real"],
-      technologies: ["ECS", "ECR"]
+      objective: "El sistema busca resolver la falta de control y organización en la gestión de ingresos, visitas, documentos e inventarios en una empresa, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad.",
+      functionalities: [
+        "Gestión de usuarios y roles",
+        "Control de acceso",
+        "Gestión de visitas",
+        "Gestión de eventos y eventualidades",
+        "Gestión documental",
+        "Gestión de inventario",
+        "Reportes y análisis",
+        "Integración con Otros Sistemas",
+        "Seguridad y Privacidad"
+      ] ,
+      challenges: [
+        "Sincronización de datos",
+        "Seguridad y protección de datos",
+        "Gestión en tiempo real",
+        "Cumplimiento normativo",
+        "Precisión de inventarios"
+      ],
+      technologies: [
+        "AWS IAM",
+        "AWS Cognito",
+        "AWS RDS",
+        "S3",
+        "Firebase Realtime Database",
+        "NestJs",
+        "Amazon Elastic Container Service (Amazon ECS)",
+        "Jenkins",
+        "SES"
+      ]
     },
     image: `${baseUrl}/projects/tytroll-login.png`,
     id: id++,
-    images: imagesFacturador
+    images: imagesTytroll
   },
 ]
 ---
@@ -209,7 +263,7 @@ const PROJECTS = [
                 <div class="w-full lg:w-1/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
                     <div class="space-y-4">
                         <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Objetivo:</h4>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
                             <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
                         </div>
                         <div>
@@ -274,7 +328,7 @@ const PROJECTS = [
                 <div class="w-full lg:w-1/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
                     <div class="space-y-4">
                         <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Objetivo:</h4>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
                             <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
                         </div>
                         <div>
