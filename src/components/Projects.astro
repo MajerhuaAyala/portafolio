@@ -129,11 +129,11 @@ const PROJECTS = [
   },
   {
     title: "Rimac UME",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    description: "El sistema optimiza la atención de emergencias médicas críticas subastando servicios, asignando unidades de auxilio cercanas, y permitiendo seguimiento en tiempo real para garantizar una respuesta rápida y eficiente.",
     summary: {
-      objective: `El sistema busca resolver la falta de visibilidad y eficiencia en la contratación de servicios 
-          como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, mediante una plataforma de subasta que ofrece 
-          transparencia y seguimiento en tiempo real de los vehículos de atención.`,
+      objective: `El sistema busca resolver la falta de coordinación y rapidez en la atención de emergencias médicas, especialmente en casos críticos como códigos rojos, 
+      mediante una plataforma que subasta los servicios a proveedores, prioriza la asignación de unidades de auxilio más cercanas y permite el seguimiento en tiempo real de 
+      los vehículos de atención, garantizando una respuesta eficiente y oportuna.`,
 
       functionalities: [
         "Registro y Gestión de Usuarios",
@@ -146,7 +146,9 @@ const PROJECTS = [
         "Reportes y Análisis",
         "Seguridad y Privacidad",
         "Seguimiento en mapa de los vehículos de auxilio",
-        "Asignación del caso al vehículo más próximo"
+        "Asignación del caso al vehículo más próximo",
+        "Asignación de prioridad a los proveedores",
+        "Asignación y reasignación de unidades"
       ] ,
       challenges: [
         "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
@@ -189,19 +191,6 @@ const PROJECTS = [
     image: `${baseUrl}/projects/login-mad.png`,
     id: id++,
     images: imagesMad
-  },
-  {
-    title: "Facturador",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
-    summary: {
-      objective: "Un sistema que gestiones las asignaciones de casos a lo proveedores",
-      functionalities: ["Mandar notificaciones en tiempo real", "Subasta automatica"] ,
-      challenges: ["Tener la data actualizada en tiempo real"],
-      technologies: ["ECS", "ECR"]
-    },
-    image: `${baseUrl}/projects/facturador.png`,
-    id: id++,
-    images: imagesFacturador
   },
   {
     title: "Medical",
@@ -292,6 +281,54 @@ const PROJECTS = [
     image: `${baseUrl}/projects/tytroll-login.png`,
     id: id++,
     images: imagesTytroll
+  },
+  {
+    title: "Facturador",
+    description: "Sistema web que optimiza el procesamiento de facturas al ofrecer seguimiento en tiempo real, notificaciones automáticas, y gestión segura de usuarios, roles, y respaldos.",
+    summary: {
+      objective: `El sistema busca resolver la falta de eficiencia y control en el procesamiento de facturas, 
+      desde su carga a partir de plantillas de Excel hasta su generación y almacenamiento en PDF, 
+      mediante una plataforma que permite un seguimiento en tiempo real del progreso, notificaciones automáticas, y una gestión segura de usuarios, roles y respaldos`,
+      functionalities: [
+        "Carga de facturas a partir de una plantilla de Excel",
+        "Procesamiento de facturas",
+        "Seguimiento en tiempo real (barra de progreso)",
+        "Notificaciones",
+        "Historial de procesamiento",
+        "Generación y almacenamiento de PDF",
+        "Gestión de usuarios y roles",
+        "Reportes y análisis",
+        "Respaldo y recuperación"
+      ] ,
+      challenges: [
+        "Implementación de un sistema que refleje el progreso en tiempo real, de manera precisa y sincronizada",
+        "Optimización para procesar grandes volúmenes de datos eficientemente",
+        "Garantizar la seguridad de la información",
+        "Asegurar que los datos del frontend estén sincronizados con el procesamiento del backend"
+      ],
+      technologies: [
+        "AWS Lambda",
+        "AWS API Gateway",
+        "NestJS",
+        "AWS S3",
+        "AWS DynamoDB",
+        "python",
+        "Puppeteer",
+        "AWS Cognito",
+        "Firebase Realtime Database",
+        "Firebase Cloud Messaging (FCM)",
+        "AWS CloudWatch",
+        "CloudFormation",
+        "Amazon Elastic Container Service (Amazon ECS)",
+        "Jest",
+        "Cucumber",
+        "AWS Pipeline",
+        "AWS4"
+      ]
+    },
+    image: `${baseUrl}/projects/facturador.png`,
+    id: id++,
+    images: imagesFacturador
   },
 ]
 ---
