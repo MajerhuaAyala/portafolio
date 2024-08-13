@@ -11,6 +11,7 @@ const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
 const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
 const imagesTytroll = await new Utils().readFiles('tytroll', baseUrl)
 const imagesMedical = await new Utils().readFiles('medical', baseUrl)
+const imagesMad = await new Utils().readFiles('mad', baseUrl)
 let id = 1
 
 const PROJECTS = [
@@ -187,7 +188,7 @@ const PROJECTS = [
     },
     image: `${baseUrl}/projects/login-mad.png`,
     id: id++,
-    images: imagesToSEV
+    images: imagesMad
   },
   {
     title: "Facturador",
