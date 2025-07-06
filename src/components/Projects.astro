@@ -1,193 +1,133 @@
 ---
-import Link from "./icons/Link.astro"
-import Button from "./Button.astro"
+import Link from "./icons/Link.astro";
+import Button from "./Button.astro";
 import Modal from "./Modal.astro";
-import Gallery from "../components/Gallery.astro"
-import Utils from "./getImages"
-import config from "./confing"
-const baseUrl = config.BASE_URL
-const imagesToSEV = await new Utils().readFiles('sev', baseUrl)
-const imagesFireCity = await new Utils().readFiles('firecity', baseUrl)
-const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
-const imagesTytroll = await new Utils().readFiles('tytroll', baseUrl)
-const imagesMedical = await new Utils().readFiles('medical', baseUrl)
-const imagesMad = await new Utils().readFiles('mad', baseUrl)
-const imagesMulticines = await new Utils().readFiles('multicines', baseUrl)
-let id = 1
+import Gallery from "../components/Gallery.astro";
+import Utils from "./getImages";
+import config from "./confing";
+const baseUrl = config.BASE_URL;
+const imagesToSEV = await new Utils().readFiles("sev", baseUrl);
+const imagesFireCity = await new Utils().readFiles("firecity", baseUrl);
+const imagesFacturador = await new Utils().readFiles("facturador", baseUrl);
+const imagesTytroll = await new Utils().readFiles("tytroll", baseUrl);
+const imagesMedical = await new Utils().readFiles("medical", baseUrl);
+const imagesMad = await new Utils().readFiles("mad", baseUrl);
+const imagesMulticines = await new Utils().readFiles("multicines", baseUrl);
+let id = 1;
 
 const PROJECTS = [
-{
-  "title": "Multicines - Plataforma Integral de Cine",
-  "description": "Plataforma web escalable para la gestión completa de complejos cinematográficos, que incluye venta de boletos, suscripciones premium, productos de concesión y gestión de inventario. Diseñada con arquitectura serverless para soportar alta demanda durante estrenos y eventos especiales, garantizando una experiencia de usuario fluida y transacciones seguras.",
-  "summary": {
-    "objective": "Desarrollar una solución integral que digitalice y optimice la experiencia cinematográfica completa, desde la selección de películas hasta la compra de snacks, mediante una plataforma web robusta que maneje eficientemente picos de demanda y garantice la integridad de las transacciones.",
-    "functionalities": [
-      "Sistema de reserva y compra de boletos con selección de asientos",
-      "Gestión de suscripciones premium con beneficios exclusivos",
-      "Tienda online de productos de concesión (snacks, bebidas, combos)",
-      "Panel de administración para gestión de usuarios y perfiles",
-      "Procesamiento de pagos múltiples con soporte para diversos métodos",
-      "Control de inventario en tiempo real para productos y funciones",
-      "Sistema de notificaciones automáticas (confirmaciones, recordatorios)",
-      "Programa de fidelización con puntos canjeables",
-      "Gestión de promociones y descuentos dinámicos",
-      "Reportes y analytics de ventas y comportamiento de usuarios"
-    ],
-    "challenges": [
-      "Implementación de sistema de devoluciones automáticas con validación de políticas",
-      "Manejo de rollback completo en transacciones fallidas multicapa",
-      "Sincronización de datos distribuidos entre múltiples servicios",
-      "Escalabilidad automática para manejar tráfico masivo durante estrenos",
-      "Gestión resiliente de errores con recuperación automática",
-      "Mantenimiento de consistencia de datos en arquitectura distribuida",
-      "Optimización de rendimiento bajo alta concurrencia",
-      "Implementación de circuit breakers para servicios críticos"
-    ],
-    "technologies": [
-      "AWS Lambda",
-      "AWS SAM",
-      "Amazon SQS",
-      "Amazon SNS",
-      "Amazon EventBridge",
-      "AWS Step Functions",
-      "Amazon CloudWatch",
-      "AWS CloudFormation",
-      "Amazon Cognito",
-      "Amazon RDS",
-      "Amazon DynamoDB",
-      "API Gateway",
-      "Pago Plux",
-      "Mercado Pago",
-      "Place to Pay",
-      "Sistema de Puntos",
-      "Amazon S3",
-      "Amazon CloudFront",
-      "entre otros"
-    ]
-  },
-  "image": `${baseUrl}/projects/multicines.png`,
-  "id": id++,
-  "images": imagesMulticines
-},
-    {
-        title: "Fire city",
-        description:
-            "Plataforma web para monitoreo en tiempo real de sensores ambientales (humo, fuego, humedad, luz, etc) con notificaciones instantáneas ante cualquier anomalía.",
-        summary: {
-            objective: `El sistema IoT busca resolver el problema de la detección tardía de humo, fuego y humedad en entornos residenciales o comerciales, lo que puede llevar a daños graves y riesgos para la seguridad. 
-            La detección precisa y oportuna de estas condiciones críticas permite emitir alertas rápidas, reduciendo daños materiales, costos y peligros para la vida.`,
-            functionalities: [
-              "Detección y Notificación de Alarmas",
-              "Monitorización en Tiempo Real",
-              "Integración con Otros Dispositivos",
-              "Respuesta Automática",
-              "Seguridad y Gestión de Usuarios",
-              "Alertas Predictivas",
-              "Integración con Sistemas de Emergencia",
-              "Personalización de Configuraciones"
-            ] ,
-            challenges: [
-              "Calibración y Precisión de Sensores",
-              "Interferencia Ambiental",
-              "Conectividad y Comunicación",
-              "Escalabilidad",
-              "Seguridad de Datos",
-              "Integración de Sistemas",
-              "Gestión de Alarmas",
-              "Resiliencia y Redundancia"
-            ],
-            technologies: [
-              "AWS IOT Core",
-              "Lambda",
-              "DynamoDB",
-              "SNS",
-              "SQS",
-              "CloudWatch",
-              "Cognito",
-              "SES",
-              "Firebase Realtime Database",
-              "Firebase Cloud Messaging",
-              "API Gateway",
-              "MQTT",
-              "Jenkins",
-              "Jest",
-              "Cucumber"
-            ]
-        },
-        image: `${baseUrl}/projects/firecity.png`,
-        id: id++,
-        images: imagesFireCity
+  {
+    title: "Multicines - Plataforma Integral de Cine",
+    description:
+      "Plataforma web para la gestión completa de complejos cinematográficos, que incluye venta de boletos, suscripciones premium, productos de concesión y gestión de inventario. Diseñada con arquitectura serverless para soportar alta demanda durante estrenos y eventos especiales, garantizando una experiencia de usuario fluida y transacciones seguras.",
+    summary: {
+      objective:
+        "Desarrollar una solución integral que digitalice y optimice la experiencia cinematográfica completa, desde la selección de películas hasta la compra de snacks, mediante una plataforma web robusta que maneje eficientemente picos de demanda y garantice la integridad de las transacciones.",
+      functionalities: [
+        "Sistema de reserva y compra de boletos con selección de asientos",
+        "Gestión de suscripciones premium con beneficios exclusivos",
+        "Tienda online de productos de concesión (snacks, bebidas, combos)",
+        "Panel de administración para gestión de usuarios y perfiles",
+        "Procesamiento de pagos múltiples con soporte para diversos métodos",
+        "Control de inventario en tiempo real para productos y funciones",
+        "Sistema de notificaciones automáticas (confirmaciones, recordatorios)",
+        "Programa de fidelización con puntos canjeables",
+        "Gestión de promociones y descuentos dinámicos",
+        "Reportes y analytics de ventas y comportamiento de usuarios",
+      ],
+      challenges: [
+        "Implementación de sistema de devoluciones automáticas con validación de políticas",
+        "Manejo de rollback completo en transacciones fallidas multicapa",
+        "Sincronización de datos distribuidos entre múltiples servicios",
+        "Escalabilidad automática para manejar tráfico masivo durante estrenos",
+        "Gestión resiliente de errores con recuperación automática",
+        "Mantenimiento de consistencia de datos en arquitectura distribuida",
+        "Optimización de rendimiento bajo alta concurrencia",
+        "Implementación de circuit breakers para servicios críticos",
+      ],
+      technologies: [
+        "AWS Lambda",
+        "AWS SAM",
+        "Amazon SQS",
+        "Amazon SNS",
+        "Amazon EventBridge",
+        "AWS Step Functions",
+        "Amazon CloudWatch",
+        "AWS CloudFormation",
+        "Amazon Cognito",
+        "Amazon RDS",
+        "Amazon DynamoDB",
+        "API Gateway",
+        "Pago Plux",
+        "Mercado Pago",
+        "Place to Pay",
+        "Sistema de Puntos",
+        "Amazon S3",
+        "Amazon CloudFront",
+        "entre otros",
+      ],
     },
+    image: `${baseUrl}/projects/multicines.png`,
+    id: id++,
+    images: imagesMulticines,
+  },
+  {
+    title: "Fire city",
+    description:
+      "Plataforma web para monitoreo en tiempo real de sensores ambientales (humo, fuego, humedad, luz, etc) con notificaciones instantáneas ante cualquier anomalía.",
+    summary: {
+      objective: `El sistema IoT busca resolver el problema de la detección tardía de humo, fuego y humedad en entornos residenciales o comerciales, lo que puede llevar a daños graves y riesgos para la seguridad. 
+            La detección precisa y oportuna de estas condiciones críticas permite emitir alertas rápidas, reduciendo daños materiales, costos y peligros para la vida.`,
+      functionalities: [
+        "Detección y Notificación de Alarmas",
+        "Monitorización en Tiempo Real",
+        "Integración con Otros Dispositivos",
+        "Respuesta Automática",
+        "Seguridad y Gestión de Usuarios",
+        "Alertas Predictivas",
+        "Integración con Sistemas de Emergencia",
+        "Personalización de Configuraciones",
+      ],
+      challenges: [
+        "Calibración y Precisión de Sensores",
+        "Interferencia Ambiental",
+        "Conectividad y Comunicación",
+        "Escalabilidad",
+        "Seguridad de Datos",
+        "Integración de Sistemas",
+        "Gestión de Alarmas",
+        "Resiliencia y Redundancia",
+      ],
+      technologies: [
+        "AWS IOT Core",
+        "Lambda",
+        "DynamoDB",
+        "SNS",
+        "SQS",
+        "CloudWatch",
+        "Cognito",
+        "SES",
+        "Firebase Realtime Database",
+        "Firebase Cloud Messaging",
+        "API Gateway",
+        "MQTT",
+        "Jenkins",
+        "Jest",
+        "Cucumber",
+      ],
+    },
+    image: `${baseUrl}/projects/firecity.png`,
+    id: id++,
+    images: imagesFireCity,
+  },
   {
     title: "Rimac SEV",
-    description: "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
-      summary: {
-          objective: `El sistema busca resolver la falta de visibilidad y eficiencia en la contratación de servicios 
+    description:
+      "Plataforma web de subasta de servicios como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, con seguimiento en tiempo real.",
+    summary: {
+      objective: `El sistema busca resolver la falta de visibilidad y eficiencia en la contratación de servicios 
           como envío de conductor de reemplazo, renovación de SOAT y atención mecánica, mediante una plataforma de subasta que ofrece 
           transparencia y seguimiento en tiempo real de los vehículos de atención.`,
-
-          functionalities: [
-            "Registro y Gestión de Usuarios",
-            "Subastas de Servicios",
-            "Gestión de Servicios",
-            "Seguimiento en Tiempo Real",
-            "Notificaciones y Alertas",
-            "Pagos y Facturación",
-            "Gestión de Reseñas y Calificaciones",
-            "Reportes y Análisis",
-            "Seguridad y Privacidad",
-            "Seguimiento en mapa de los vehículos de auxilio",
-            "Asignación del caso al vehículo más próximo"
-          ] ,
-          challenges: [
-            "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
-            "Gestión de subastas (escalabilidad, sincronización)",
-            "Seguridad y privacidad",
-            "Procesamiento de pagos",
-            "Redimiento y escalabilidad",
-            "Integración con proveedores de servicios (Sales Force)",
-            "Manejo de errores y fallos",
-            "Cumpliento normativo"
-          ],
-          technologies: [
-            "AWS Lambda",
-            "Nodejs",
-            "Serverless",
-            "NestJs",
-            "Amazon Elastic Container Service (Amazon ECS)",
-            "Amazon DynamoDB",
-            "Amazon RDS (MySQl)",
-            "Docker",
-            "Redis",
-            "API Gateway",
-            "Amazon S3",
-            "SNS",
-            "SQS",
-            "CloudFormation",
-            "StepFunction",
-            "EventBridge",
-            "AWS Amplify",
-            "Cognito",
-            "Firebase Realtime Database",
-            "Firebase Cloud Messaging (FCM)",
-            "Google Maps Geocoding",
-            "Google Maps Directions",
-            "Jenkins",
-            "Jest",
-            "Cucumber",
-          ]
-      },
-    image: `${baseUrl}/projects/sev/login.png`,
-    id: id++,
-    images: imagesToSEV
-  },
-  {
-    title: "Rimac UME",
-    description: "El sistema optimiza la atención de emergencias médicas críticas subastando servicios, asignando unidades de auxilio cercanas, y permitiendo seguimiento en tiempo real para garantizar una respuesta rápida y eficiente.",
-    summary: {
-      objective: `El sistema busca resolver la falta de coordinación y rapidez en la atención de emergencias médicas, especialmente en casos críticos como códigos rojos, 
-      mediante una plataforma que subasta los servicios a proveedores, prioriza la asignación de unidades de auxilio más cercanas y permite el seguimiento en tiempo real de 
-      los vehículos de atención, garantizando una respuesta eficiente y oportuna.`,
 
       functionalities: [
         "Registro y Gestión de Usuarios",
@@ -201,9 +141,7 @@ const PROJECTS = [
         "Seguridad y Privacidad",
         "Seguimiento en mapa de los vehículos de auxilio",
         "Asignación del caso al vehículo más próximo",
-        "Asignación de prioridad a los proveedores",
-        "Asignación y reasignación de unidades"
-      ] ,
+      ],
       challenges: [
         "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
         "Gestión de subastas (escalabilidad, sincronización)",
@@ -212,7 +150,7 @@ const PROJECTS = [
         "Redimiento y escalabilidad",
         "Integración con proveedores de servicios (Sales Force)",
         "Manejo de errores y fallos",
-        "Cumpliento normativo"
+        "Cumpliento normativo",
       ],
       technologies: [
         "AWS Lambda",
@@ -240,17 +178,85 @@ const PROJECTS = [
         "Jenkins",
         "Jest",
         "Cucumber",
-      ]
+      ],
+    },
+    image: `${baseUrl}/projects/sev/login.png`,
+    id: id++,
+    images: imagesToSEV,
+  },
+  {
+    title: "Rimac UME",
+    description:
+      "El sistema optimiza la atención de emergencias médicas críticas subastando servicios, asignando unidades de auxilio cercanas, y permitiendo seguimiento en tiempo real para garantizar una respuesta rápida y eficiente.",
+    summary: {
+      objective: `El sistema busca resolver la falta de coordinación y rapidez en la atención de emergencias médicas, especialmente en casos críticos como códigos rojos, 
+      mediante una plataforma que subasta los servicios a proveedores, prioriza la asignación de unidades de auxilio más cercanas y permite el seguimiento en tiempo real de 
+      los vehículos de atención, garantizando una respuesta eficiente y oportuna.`,
+
+      functionalities: [
+        "Registro y Gestión de Usuarios",
+        "Subastas de Servicios",
+        "Gestión de Servicios",
+        "Seguimiento en Tiempo Real",
+        "Notificaciones y Alertas",
+        "Pagos y Facturación",
+        "Gestión de Reseñas y Calificaciones",
+        "Reportes y Análisis",
+        "Seguridad y Privacidad",
+        "Seguimiento en mapa de los vehículos de auxilio",
+        "Asignación del caso al vehículo más próximo",
+        "Asignación de prioridad a los proveedores",
+        "Asignación y reasignación de unidades",
+      ],
+      challenges: [
+        "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
+        "Gestión de subastas (escalabilidad, sincronización)",
+        "Seguridad y privacidad",
+        "Procesamiento de pagos",
+        "Redimiento y escalabilidad",
+        "Integración con proveedores de servicios (Sales Force)",
+        "Manejo de errores y fallos",
+        "Cumpliento normativo",
+      ],
+      technologies: [
+        "AWS Lambda",
+        "Nodejs",
+        "Serverless",
+        "NestJs",
+        "Amazon Elastic Container Service (Amazon ECS)",
+        "Amazon DynamoDB",
+        "Amazon RDS (MySQl)",
+        "Docker",
+        "Redis",
+        "API Gateway",
+        "Amazon S3",
+        "SNS",
+        "SQS",
+        "CloudFormation",
+        "StepFunction",
+        "EventBridge",
+        "AWS Amplify",
+        "Cognito",
+        "Firebase Realtime Database",
+        "Firebase Cloud Messaging (FCM)",
+        "Google Maps Geocoding",
+        "Google Maps Directions",
+        "Jenkins",
+        "Jest",
+        "Cucumber",
+      ],
     },
     image: `${baseUrl}/projects/login-mad.png`,
     id: id++,
-    images: imagesMad
+    images: imagesMad,
   },
   {
     title: "Medical",
-    description: "El sistema optimiza la atención médica al centralizar los precios, seguimiento de ambulancias, gestión de casos y notificaciones, mejorando la respuesta y la satisfacción del paciente.",
+    description:
+      "El sistema optimiza la atención médica al centralizar los precios, seguimiento de ambulancias, gestión de casos y notificaciones, mejorando la respuesta y la satisfacción del paciente.",
     summary: {
-      objective: "El sistema resuelve la ineficiencia en la atención médica al centralizar la gestión de recursos, precios, y seguimiento de casos en tiempo real, optimizando la respuesta y mejorando la satisfacción del paciente.",
+      objective:
+        "El sistema resuelve la ineficiencia en la atención médica al centralizar la gestión de recursos, precios, y seguimiento de casos en tiempo real, optimizando la respuesta y mejorando la satisfacción del paciente.",
       functionalities: [
         "Gestión de precios de medicamentos",
         "Gestión de doctores",
@@ -262,13 +268,13 @@ const PROJECTS = [
         "Notificaciones y alertas",
         "Asignación de proveedores",
         "Integraciones externas",
-        "Gestión de incidencias y soporte"
-      ] ,
+        "Gestión de incidencias y soporte",
+      ],
       challenges: [
         "Integración de mapas en tiempo real (precisión, actualización y rendimiento)",
         "Asegurar que los datos sensibles, como la información del paciente",
         "Rendimiento y escalabilidad",
-        "Sincronización y actualización de los datos en tiempo real"
+        "Sincronización y actualización de los datos en tiempo real",
       ],
       technologies: [
         "AWS Lambda",
@@ -289,19 +295,21 @@ const PROJECTS = [
         "Amazon Elastic Container Service (Amazon ECS)",
         "NestJS",
         "Serverless",
-        "Event Bridge"
-      ]
+        "Event Bridge",
+      ],
     },
     image: `${baseUrl}/projects/medical-login.png`,
     id: id++,
-    images: imagesMedical
+    images: imagesMedical,
   },
 
   {
     title: "Tytroll",
-    description: "El sistema gestiona el registro de ingresos, visitas, eventos, documentos e inventarios, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad en la empresa.",
+    description:
+      "El sistema gestiona el registro de ingresos, visitas, eventos, documentos e inventarios, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad en la empresa.",
     summary: {
-      objective: "El sistema busca resolver la falta de control y organización en la gestión de ingresos, visitas, documentos e inventarios en una empresa, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad.",
+      objective:
+        "El sistema busca resolver la falta de control y organización en la gestión de ingresos, visitas, documentos e inventarios en una empresa, centralizando y automatizando estos procesos para mejorar la eficiencia y seguridad.",
       functionalities: [
         "Gestión de usuarios y roles",
         "Control de acceso",
@@ -311,14 +319,14 @@ const PROJECTS = [
         "Gestión de inventario",
         "Reportes y análisis",
         "Integración con Otros Sistemas",
-        "Seguridad y Privacidad"
-      ] ,
+        "Seguridad y Privacidad",
+      ],
       challenges: [
         "Sincronización de datos",
         "Seguridad y protección de datos",
         "Gestión en tiempo real",
         "Cumplimiento normativo",
-        "Precisión de inventarios"
+        "Precisión de inventarios",
       ],
       technologies: [
         "AWS IAM",
@@ -329,16 +337,17 @@ const PROJECTS = [
         "NestJs",
         "Amazon Elastic Container Service (Amazon ECS)",
         "Jenkins",
-        "SES"
-      ]
+        "SES",
+      ],
     },
     image: `${baseUrl}/projects/tytroll-login.png`,
     id: id++,
-    images: imagesTytroll
+    images: imagesTytroll,
   },
   {
     title: "Facturador",
-    description: "Sistema web que optimiza el procesamiento de facturas al ofrecer seguimiento en tiempo real, notificaciones automáticas, y gestión segura de usuarios, roles, y respaldos.",
+    description:
+      "Sistema web que optimiza el procesamiento de facturas al ofrecer seguimiento en tiempo real, notificaciones automáticas, y gestión segura de usuarios, roles, y respaldos.",
     summary: {
       objective: `El sistema busca resolver la falta de eficiencia y control en el procesamiento de facturas, 
       desde su carga a partir de plantillas de Excel hasta su generación y almacenamiento en PDF, 
@@ -352,13 +361,13 @@ const PROJECTS = [
         "Generación y almacenamiento de PDF",
         "Gestión de usuarios y roles",
         "Reportes y análisis",
-        "Respaldo y recuperación"
-      ] ,
+        "Respaldo y recuperación",
+      ],
       challenges: [
         "Implementación de un sistema que refleje el progreso en tiempo real, de manera precisa y sincronizada",
         "Optimización para procesar grandes volúmenes de datos eficientemente",
         "Garantizar la seguridad de la información",
-        "Asegurar que los datos del frontend estén sincronizados con el procesamiento del backend"
+        "Asegurar que los datos del frontend estén sincronizados con el procesamiento del backend",
       ],
       technologies: [
         "AWS Lambda",
@@ -377,187 +386,225 @@ const PROJECTS = [
         "Jest",
         "Cucumber",
         "AWS Pipeline",
-        "AWS4"
-      ]
+        "AWS4",
+      ],
     },
     image: `${baseUrl}/projects/facturador.png`,
     id: id++,
-    images: imagesFacturador
+    images: imagesFacturador,
   },
-]
+];
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.slice(0,2).map(({ image, title, description, id, images, summary }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-  <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
-    </div>
-  </div>
-
-  <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-      {title}
-    </h3>
-    <div class="flex flex-wrap mt-2">
-      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
-            <Button id={id}>
-              <Link class="size-4" />
-              Preview
-            </Button>
-        </footer>
-
-        <Modal id={`extralarge-modal-${id}`} title={title}>
-          <div class="flex flex-col lg:flex-row h-[80vh]">
-            <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
-              <Gallery urls={images} />
-            </div>
-            <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
-              <div class="space-y-4">
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
-                  <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.functionalities.map(func => (
-                      <li>{func}</li>
-                    ))}
-                  </ul>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.challenges.map(func => (
-                      <li>{func}</li>
-                    ))}
-                  </ul>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.technologies.join(", ")}.
-                  </ul>
-                </section>
-              </div>
+    PROJECTS.slice(0, 2).map(
+      ({ image, title, description, id, images, summary }) => (
+        <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+          <div class="w-full md:w-1/2">
+            <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+              <img
+                alt="Recién llegado vs 5 años en Nueva Zelanda"
+                class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                loading="lazy"
+                src={image}
+              />
             </div>
           </div>
-        </Modal>
-    </div>
-  </div>
-</article>
-    ))
+
+          <div class="w-full md:w-1/2 md:max-w-lg">
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              {title}
+            </h3>
+            <div class="flex flex-wrap mt-2">
+              <div class="mt-2 text-gray-700 dark:text-gray-400">
+                {description}
+              </div>
+              <footer class="flex items-end justify-start mt-4 gap-x-4">
+                <Button id={id}>
+                  <Link class="size-4" />
+                  Preview
+                </Button>
+              </footer>
+
+              <Modal id={`extralarge-modal-${id}`} title={title}>
+                <div class="flex flex-col lg:flex-row h-[80vh]">
+                  <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
+                    <Gallery urls={images} />
+                  </div>
+                  <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
+                    <div class="space-y-4">
+                      <section>
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                          Problema:
+                        </h4>
+                        <p class="text-gray-700 dark:text-gray-400">
+                          {summary.objective}
+                        </p>
+                      </section>
+                      <section>
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                          Funcionalidades:
+                        </h4>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                          {summary.functionalities.map((func) => (
+                            <li>{func}</li>
+                          ))}
+                        </ul>
+                      </section>
+                      <section>
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                          Retos:
+                        </h4>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                          {summary.challenges.map((func) => (
+                            <li>{func}</li>
+                          ))}
+                        </ul>
+                      </section>
+                      <section>
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                          Tecnologías:
+                        </h4>
+                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                          {summary.technologies.join(", ")}.
+                        </ul>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
+            </div>
+          </div>
+        </article>
+      ),
+    )
   }
 
-<div id="elementosRestantes" class="hidden flex flex-col gap-y-16">
-  {PROJECTS.slice(2).map(({image, title, description, id, images, summary}) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 transition-all duration-500 ">
-  <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" src={image} />
-    </div>
-  </div>
-
-  <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-      {title}
-    </h3>
-    <div class="flex flex-wrap mt-2">
-      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
-            <Button id={id}>
-              <Link class="size-4" />
-              Preview
-            </Button>
-        </footer>
-
-        <Modal id={`extralarge-modal-${id}`} title={title}>
-          <div class="flex flex-col lg:flex-row h-[80vh]">
-            <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
-              <Gallery urls={images} />
-            </div>
-            <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
-              <div class="space-y-4">
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
-                  <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.functionalities.map(func => (
-                      <li>{func}</li>
-                    ))}
-                  </ul>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.challenges.map(func => (
-                      <li>{func}</li>
-                    ))}
-                  </ul>
-                </section>
-                <section>
-                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                    {summary.technologies.join(", ")}.
-                  </ul>
-                </section>
+  <div id="elementosRestantes" class="hidden flex flex-col gap-y-16">
+    {
+      PROJECTS.slice(2).map(
+        ({ image, title, description, id, images, summary }) => (
+          <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 transition-all duration-500 ">
+            <div class="w-full md:w-1/2">
+              <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+                <img
+                  alt="Recién llegado vs 5 años en Nueva Zelanda"
+                  class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                  src={image}
+                />
               </div>
             </div>
-          </div>
-        </Modal>
-    </div>
+
+            <div class="w-full md:w-1/2 md:max-w-lg">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                {title}
+              </h3>
+              <div class="flex flex-wrap mt-2">
+                <div class="mt-2 text-gray-700 dark:text-gray-400">
+                  {description}
+                </div>
+                <footer class="flex items-end justify-start mt-4 gap-x-4">
+                  <Button id={id}>
+                    <Link class="size-4" />
+                    Preview
+                  </Button>
+                </footer>
+
+                <Modal id={`extralarge-modal-${id}`} title={title}>
+                  <div class="flex flex-col lg:flex-row h-[80vh]">
+                    <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
+                      <Gallery urls={images} />
+                    </div>
+                    <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
+                      <div class="space-y-4">
+                        <section>
+                          <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                            Problema:
+                          </h4>
+                          <p class="text-gray-700 dark:text-gray-400">
+                            {summary.objective}
+                          </p>
+                        </section>
+                        <section>
+                          <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                            Funcionalidades:
+                          </h4>
+                          <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                            {summary.functionalities.map((func) => (
+                              <li>{func}</li>
+                            ))}
+                          </ul>
+                        </section>
+                        <section>
+                          <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                            Retos:
+                          </h4>
+                          <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                            {summary.challenges.map((func) => (
+                              <li>{func}</li>
+                            ))}
+                          </ul>
+                        </section>
+                        <section>
+                          <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                            Tecnologías:
+                          </h4>
+                          <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                            {summary.technologies.join(", ")}.
+                          </ul>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </Modal>
+              </div>
+            </div>
+          </article>
+        ),
+      )
+    }
   </div>
-</article>
-  ))}
+
+  {
+    PROJECTS.length > 2 && (
+      <button
+        id="mostrarMas"
+        class="inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-gray-300 rounded-full dark:bg-gray-800 dark:border-gray-600 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-700 group max-w-fit hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+      >
+        Mostrar restantes
+      </button>
+    )
+  }
 </div>
-
-{PROJECTS.length > 2 && (
-  <button
-          id="mostrarMas"
-          class="inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-gray-300 rounded-full dark:bg-gray-800 dark:border-gray-600 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-700 group max-w-fit hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
-  >
-      Mostrar restantes
-  </button>
-)}
-
-</div>
-
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const openButtons = document.querySelectorAll('.open-modal');
-    openButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const modalId = button.getAttribute('id');
+  document.addEventListener("DOMContentLoaded", () => {
+    const openButtons = document.querySelectorAll(".open-modal");
+    openButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const modalId = button.getAttribute("id");
         const modal = document.getElementById(`extralarge-modal-${modalId}`);
-        console.log("Modal: ", modal)
-        if (modal){
-          modal.classList.remove('hidden');
-          document.body.classList.add('overflow-y-hidden');
+        console.log("Modal: ", modal);
+        if (modal) {
+          modal.classList.remove("hidden");
+          document.body.classList.add("overflow-y-hidden");
         }
       });
     });
   });
 
-  const botonMostrarMas = document.getElementById('mostrarMas');
-  const elementosRestantes = document.getElementById('elementosRestantes');
+  const botonMostrarMas = document.getElementById("mostrarMas");
+  const elementosRestantes = document.getElementById("elementosRestantes");
 
   if (botonMostrarMas && elementosRestantes) {
-    botonMostrarMas.addEventListener('click', () => {
-      elementosRestantes.classList.toggle('hidden');
-      botonMostrarMas.textContent = elementosRestantes.classList.contains('hidden')
+    botonMostrarMas.addEventListener("click", () => {
+      elementosRestantes.classList.toggle("hidden");
+      botonMostrarMas.textContent = elementosRestantes.classList.contains(
+        "hidden",
+      )
         ? `Mostrar restantes`
-        : 'Mostrar menos';
+        : "Mostrar menos";
     });
   }
-
 </script>
-
-
