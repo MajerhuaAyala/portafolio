@@ -356,42 +356,42 @@ const PROJECTS = [
             </Button>
         </footer>
 
-        <Modal id=`extralarge-modal-${id}` title={title}>
-            <div class="flex flex-col lg:flex-row h-full">
-                <div class="w-full lg:w-3/5 h-[60%] lg:h-full p-4 overflow-y-auto flex-1">
-                    <Gallery urls = {images}></Gallery>
-                </div>
-                <div class="w-full lg:w-2/5 h-[40%] lg:h-full p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
-                            <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                                {summary.functionalities.map(func => (
-                                        <li>{func}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                                {summary.challenges.map(func => (
-                                        <li>{func}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                                {summary.technologies.join(", ")}.
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <Modal id={`extralarge-modal-${id}`} title={title}>
+          <div class="flex flex-col lg:flex-row h-[80vh]">
+            <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
+              <Gallery urls={images} />
             </div>
+            <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
+              <div class="space-y-4">
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
+                  <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.functionalities.map(func => (
+                      <li>{func}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.challenges.map(func => (
+                      <li>{func}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.technologies.join(", ")}.
+                  </ul>
+                </section>
+              </div>
+            </div>
+          </div>
         </Modal>
     </div>
   </div>
@@ -421,42 +421,42 @@ const PROJECTS = [
             </Button>
         </footer>
 
-        <Modal id=`extralarge-modal-${id}` title={title}>
-            <div class="flex flex-col lg:flex-row h-full">
-                <div class="w-full lg:w-3/5 h-[60%] lg:h-full p-4 overflow-y-auto flex-1">
-                    <Gallery urls = {images}></Gallery>
-                </div>
-                <div class="w-full lg:w-2/5 h-[40%] lg:h-full p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600">
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
-                            <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                                {summary.functionalities.map(func => (
-                                        <li>{func}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                                {summary.challenges.map(func => (
-                                        <li>{func}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
-                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
-                              {summary.technologies.join(", ")}.
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <Modal id={`extralarge-modal-${id}`} title={title}>
+          <div class="flex flex-col lg:flex-row h-[80vh]">
+            <div class="w-full lg:w-3/5 flex-1 p-4 overflow-y-auto h-[60%] lg:h-full">
+              <Gallery urls={images} />
             </div>
+            <div class="w-full lg:w-2/5 p-4 overflow-y-auto border-t lg:border-t-0 lg:border-l dark:border-gray-600 h-[40%] lg:h-full">
+              <div class="space-y-4">
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Problema:</h4>
+                  <p class="text-gray-700 dark:text-gray-400">{summary.objective}</p>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Funcionalidades:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.functionalities.map(func => (
+                      <li>{func}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Retos:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.challenges.map(func => (
+                      <li>{func}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="font-semibold text-gray-900 dark:text-gray-100">Tecnologías:</h4>
+                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-400">
+                    {summary.technologies.join(", ")}.
+                  </ul>
+                </section>
+              </div>
+            </div>
+          </div>
         </Modal>
     </div>
   </div>
