@@ -12,9 +12,63 @@ const imagesFacturador = await new Utils().readFiles('facturador', baseUrl)
 const imagesTytroll = await new Utils().readFiles('tytroll', baseUrl)
 const imagesMedical = await new Utils().readFiles('medical', baseUrl)
 const imagesMad = await new Utils().readFiles('mad', baseUrl)
+const imagesMulticines = await new Utils().readFiles('multicines', baseUrl)
 let id = 1
 
 const PROJECTS = [
+{
+  "title": "Multicines - Plataforma Integral de Cine",
+  "description": "Plataforma web escalable para la gestión completa de complejos cinematográficos, que incluye venta de boletos, suscripciones premium, productos de concesión y gestión de inventario. Diseñada con arquitectura serverless para soportar alta demanda durante estrenos y eventos especiales, garantizando una experiencia de usuario fluida y transacciones seguras.",
+  "summary": {
+    "objective": "Desarrollar una solución integral que digitalice y optimice la experiencia cinematográfica completa, desde la selección de películas hasta la compra de snacks, mediante una plataforma web robusta que maneje eficientemente picos de demanda y garantice la integridad de las transacciones.",
+    "functionalities": [
+      "Sistema de reserva y compra de boletos con selección de asientos",
+      "Gestión de suscripciones premium con beneficios exclusivos",
+      "Tienda online de productos de concesión (snacks, bebidas, combos)",
+      "Panel de administración para gestión de usuarios y perfiles",
+      "Procesamiento de pagos múltiples con soporte para diversos métodos",
+      "Control de inventario en tiempo real para productos y funciones",
+      "Sistema de notificaciones automáticas (confirmaciones, recordatorios)",
+      "Programa de fidelización con puntos canjeables",
+      "Gestión de promociones y descuentos dinámicos",
+      "Reportes y analytics de ventas y comportamiento de usuarios"
+    ],
+    "challenges": [
+      "Implementación de sistema de devoluciones automáticas con validación de políticas",
+      "Manejo de rollback completo en transacciones fallidas multicapa",
+      "Sincronización de datos distribuidos entre múltiples servicios",
+      "Escalabilidad automática para manejar tráfico masivo durante estrenos",
+      "Gestión resiliente de errores con recuperación automática",
+      "Mantenimiento de consistencia de datos en arquitectura distribuida",
+      "Optimización de rendimiento bajo alta concurrencia",
+      "Implementación de circuit breakers para servicios críticos"
+    ],
+    "technologies": [
+      "AWS Lambda",
+      "AWS SAM",
+      "Amazon SQS",
+      "Amazon SNS",
+      "Amazon EventBridge",
+      "AWS Step Functions",
+      "Amazon CloudWatch",
+      "AWS CloudFormation",
+      "Amazon Cognito",
+      "Amazon RDS",
+      "Amazon DynamoDB",
+      "API Gateway",
+      "Pago Plux",
+      "Mercado Pago",
+      "Place to Pay",
+      "Sistema de Puntos",
+      "Amazon S3",
+      "Amazon CloudFront",
+      "entre otros"
+    ]
+  },
+  "image": `${baseUrl}/projects/multicines.png`,
+  "id": id++,
+  "images": imagesMulticines
+},
     {
         title: "Fire city",
         description:
