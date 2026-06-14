@@ -1,0 +1,9 @@
+# pnpm workspace configuration
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+overrides:
+  esbuild: 0.28.1
+  yaml: 2.8.3
