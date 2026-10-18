@@ -8,5 +8,12 @@ export default defineConfig({
   vite: { plugins: [tailwindcss()] },
   integrations: [robotsTxt()],
   site: 'https://majerhuaayala.github.io',
-  base: "/portafolio"
+  base: "/portafolio",
+  i18n: {
+    locales: ['es', 'en'],
+    defaultLocale: 'es',
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
 })

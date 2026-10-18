@@ -1,0 +1,166 @@
+---
+import Gallery from "@/components/Gallery.astro"
+import Marked from "@/components/Marked.astro"
+import { getImages } from "@/components/getImages"
+import { getDictionary, locales, type Locale } from "@/i18n"
+import { publicImage } from "@/lib/imageMeta"
+import { stripMarks } from "@/lib/marked"
+import { localePath } from "@/lib/paths"
+import Layout from "@/layouts/Layout.astro"
+
+export function getStaticPaths() {
+  return locales.flatMap((lang) =>
+    getDictionary(lang).projects.items.map((project) => ({
+      params: { lang, slug: project.slug },
+    })),
+  )
+}
+
+const locale = Astro.params.lang as Locale
+const slug = Astro.params.slug ?? ""
+const dict = getDictionary(locale)
+const index = dict.projects.items.findIndex((item) => item.slug === slug)
+const project = dict.projects.items[index]
+if (!project || index < 0) throw new Error(`Missing project for slug "${slug}"`)
+
+const next = dict.projects.items[(index + 1) % dict.projects.items.length]
+const cover = await publicImage(project.cover)
+const nextCover = await publicImage(next.cover)
+const gallery = await getImages(project.galleryDir)
+const description = stripMarks(project.summary).trim() || dict.meta.description
+const labels = dict.projects.labels
+---
+
+<Layout
+  locale={locale}
+  dict={dict}
+  title={`${project.title} | ${dict.hero.name}`}
+  description={description}
+  alternatePath={`proyectos/${project.slug}`}
+>
+  <article class="shell py-10 md:py-16">
+    <p>
+      <a class="kicker underline underline-offset-4" href={`${localePath(locale)}#proyectos`}>
+        <span aria-hidden="true">← </span>{dict.projects.backToProjects}
+      </a>
+    </p>
+
+    <div class="mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-x-14 lg:gap-y-10">
+      <header class="min-w-0 lg:col-start-1 lg:row-start-1">
+        <p class="kicker">{project.sector}</p>
+        <h1 class="mt-3 font-display text-[clamp(2.25rem,5vw,4rem)] font-extrabold leading-[0.95] tracking-[-0.02em] text-balance text-ink">
+          {project.title}
+        </h1>
+        <p class="mt-4 max-w-2xl font-body text-xl leading-snug text-pretty text-ink">
+          <Marked text={project.summary} />
+        </p>
+      </header>
+
+      <aside class="mt-8 min-w-0 lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:mt-0">
+        <div class="rounded-[12px] border border-rule bg-surface p-5 lg:sticky lg:top-24">
+          <dl class="grid gap-5">
+            {
+              project.client && (
+                <div>
+                  <dt class="kicker">{labels.client}</dt>
+                  <dd class="mt-1 font-body text-ink">{project.client}</dd>
+                </div>
+              )
+            }
+            <div>
+              <dt class="kicker">{labels.sector}</dt>
+              <dd class="mt-1 font-body text-ink">{project.sector}</dd>
+            </div>
+            <div>
+              <dt class="kicker">{labels.role}</dt>
+              <dd class="mt-1 font-body text-ink">{project.role}</dd>
+            </div>
+            <div>
+              <dt class="kicker">{labels.technologies}</dt>
+              <dd class="mt-1 font-mono text-xs leading-5 text-ink">{project.technologies.join(" · ")}</dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
+
+      <img
+        class="mt-8 w-full rounded-[12px] border border-rule lg:col-start-1 lg:row-start-2 lg:mt-0"
+        src={cover.src}
+        alt={project.coverAlt}
+        width={cover.width}
+        height={cover.height}
+      />
+
+      <div class="mt-10 min-w-0 space-y-10 lg:col-start-1 lg:row-start-3 lg:mt-0">
+        <section aria-labelledby="case-challenge">
+          <h2 id="case-challenge" class="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">
+            {labels.challenge}
+          </h2>
+          <p class="mt-3 max-w-3xl font-body text-lg leading-relaxed text-pretty text-ink">{project.challenge}</p>
+        </section>
+
+        {
+          project.whatIDid.length > 0 && (
+            <section aria-labelledby="case-what">
+              <h2 id="case-what" class="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">
+                {labels.whatIDid}
+              </h2>
+              <ul class="mt-3 list-disc space-y-2 pl-5 font-body text-lg leading-relaxed text-ink">
+                {project.whatIDid.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          project.results.length > 0 && (
+            <section aria-labelledby="case-results">
+              <h2 id="case-results" class="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">
+                {labels.results}
+              </h2>
+              <ul class="mt-3 list-disc space-y-2 pl-5 font-body text-lg leading-relaxed text-ink">
+                {project.results.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          gallery.length > 0 && (
+            <Gallery
+              images={gallery}
+              alt={project.coverAlt}
+              heading={labels.gallery}
+              lightbox={dict.ui.lightbox}
+            />
+          )
+        }
+      </div>
+    </div>
+
+    <a
+      class="mt-16 flex items-center gap-4 border-t border-rule pt-8"
+      href={localePath(locale, `proyectos/${next.slug}`)}
+    >
+      <img
+        src={nextCover.src}
+        alt={next.coverAlt}
+        width={nextCover.width}
+        height={nextCover.height}
+        loading="lazy"
+        decoding="async"
+        class="size-16 shrink-0 rounded-[12px] border border-rule object-cover"
+      />
+      <span class="min-w-0">
+        <span class="kicker">{dict.projects.nextProject}</span>
+        <span class="mt-1 block font-display text-2xl font-semibold tracking-[-0.02em] text-ink underline decoration-1 underline-offset-4">
+          {next.title}
+        </span>
+      </span>
+    </a>
+  </article>
+</Layout>

@@ -1,128 +1,217 @@
 ---
+import { type Locale } from "@/i18n"
+import type { Dictionary } from "@/i18n/types"
+import { localePath, withBase } from "@/lib/paths"
+import FileDownload from "./icons/FileDownload.astro"
 import ThemeToggle from "./ThemeToggle.astro"
-import config from "./confing"
 
-const navItems = [
-  {
-    title: "Experiencia",
-    label: "experiencia",
-    url: `${config.BASE_URL}/#experiencia`,
-  },
-  {
-    title: "Proyectos",
-    label: "proyectos",
-    url: `${config.BASE_URL}/#proyectos`,
-  },
-  {
-    title: "Sobre mí",
-    label: "sobre-mi",
-    url: `${config.BASE_URL}/#sobre-mi`,
-  },
-  {
-    title: "Contacto",
-    label: "contacto",
-    url: "mailto:marcelino.majerhua@gmail.com",
-  },
+interface Props {
+  locale: Locale
+  dict: Dictionary
+  alternatePath?: string
+}
+
+const { locale, dict, alternatePath = "" } = Astro.props
+const cvHref = withBase(dict.contact.cvFile)
+const homeHref = localePath(locale)
+
+const links = [
+  { href: `${homeHref}#proyectos`, label: dict.nav.projects },
+  { href: `${homeHref}#experiencia`, label: dict.nav.experience },
+  { href: `${homeHref}#habilidades`, label: dict.nav.skills },
+  { href: `${homeHref}#sobre-mi`, label: dict.nav.about },
+  { href: `${homeHref}#contacto`, label: dict.nav.contact },
+]
+
+const localeLinks = [
+  { code: "es" as const, label: "ES" },
+  { code: "en" as const, label: "EN" },
 ]
 ---
 
-<header
-        class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
-    <nav
-            class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
-    >
+<header class="sticky top-0 z-30 border-b border-rule bg-paper">
+  <a
+    href="#content"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-[12px] focus:border focus:border-rule focus:bg-paper focus:px-3 focus:py-2 focus:font-display focus:text-sm focus:font-semibold focus:text-ink"
+  >
+    {dict.ui.skipToContent}
+  </a>
+  <div class="shell flex flex-wrap items-center gap-x-3 gap-y-2 py-3">
+    <a href={homeHref} class="font-display text-lg font-extrabold tracking-[-0.02em] text-ink">
+      MMA
+    </a>
+
+    <nav class="hidden items-center gap-x-4 lg:flex">
       {
-        navItems.map((link) => (
-                <a
-                        class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-400"
-                        aria-label={link.label}
-                        href={link.url}
-                >
-                  {link.title}
-                </a>
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="font-display text-sm font-semibold tracking-[-0.02em] text-slate hover:text-ink"
+          >
+            {link.label}
+          </a>
         ))
       }
-        <ThemeToggle/>
     </nav>
+
+    <div class="ml-auto flex items-center gap-2 sm:gap-3">
+      <nav aria-label={dict.ui.language} class="flex items-center gap-1 font-mono text-xs font-medium">
+        {
+          localeLinks.map((item, index) => (
+            <>
+              {index > 0 && (
+                <span aria-hidden="true" class="text-rule">
+                  |
+                </span>
+              )}
+              <a
+                href={localePath(item.code, alternatePath)}
+                hreflang={item.code}
+                lang={item.code}
+                data-set-lang={item.code}
+                aria-current={locale === item.code ? "true" : undefined}
+                aria-label={`${dict.ui.switchTo} ${item.label}`}
+                class:list={[
+                  "px-0.5 tracking-[0.08em]",
+                  locale === item.code ? "text-ink" : "text-slate hover:text-ink",
+                ]}
+              >
+                {item.label}
+              </a>
+            </>
+          ))
+        }
+      </nav>
+      <ThemeToggle theme={dict.ui.theme} />
+      <a
+        href={cvHref}
+        download
+        class="cv-chip"
+        aria-label={`${dict.hero.ctaCv} (PDF, ${dict.ui.language})`}
+      >
+        <FileDownload />
+        <span class="hidden sm:inline">{dict.hero.ctaCv}</span>
+        <span class="sm:hidden">{dict.nav.cv}</span>
+        <span class="cv-chip-lang" aria-hidden="true">{locale.toUpperCase()}</span>
+      </a>
+    </div>
+  </div>
+  <script is:inline>
+    ;(function () {
+      var saved = null
+      try {
+        var raw = sessionStorage.getItem("lang-switch-scroll")
+        sessionStorage.removeItem("lang-switch-scroll")
+        if (raw) {
+          var parsed = JSON.parse(raw)
+          if (
+            parsed &&
+            typeof parsed === "object" &&
+            typeof parsed.path === "string" &&
+            (parsed.id === null || typeof parsed.id === "string") &&
+            typeof parsed.progress === "number" &&
+            Number.isFinite(parsed.progress) &&
+            parsed.path === location.pathname
+          ) {
+            saved = { path: parsed.path, id: parsed.id, progress: parsed.progress }
+          }
+        }
+      } catch (error) {
+        saved = null
+      }
+      window.__langScroll = saved
+
+      var apply = function () {
+        if (!saved) return
+        var header = document.querySelector("header")
+        var offset = header ? header.getBoundingClientRect().height : 0
+        var el = saved.id ? document.getElementById(saved.id) : null
+        var target =
+          saved.id && el
+            ? el.getBoundingClientRect().top + window.scrollY + saved.progress * el.offsetHeight - offset
+            : saved.progress * (document.documentElement.scrollHeight - window.innerHeight)
+        window.scrollTo({ top: Math.max(0, target), behavior: "instant" })
+        if (location.hash) history.replaceState(null, "", location.pathname + location.search)
+      }
+
+      if ("onpagereveal" in window) window.addEventListener("pagereveal", apply, { once: true })
+      else if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", apply, { once: true })
+      else apply()
+    })()
+  </script>
 </header>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const sections = document.querySelectorAll("section")
-    const navItems = document.querySelectorAll("header nav a")
+  type LangSwitchScroll = {
+    path: string
+    id: string | null
+    progress: number
+  }
 
-    const callback = (entries: any[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("aria-label") == entry.target.id) {
-              item.classList.add("text-yellow-500")
-            } else {
-              item.classList.remove("text-yellow-500")
-            }
-          })
-        }
-      })
+  const clamp01 = (value: number) => {
+    if (!Number.isFinite(value) || value < 0) return 0
+    if (value > 1) return 1
+    return value
+  }
+
+  const headerHeight = () => document.querySelector("header")?.getBoundingClientRect().height ?? 0
+
+  const currentAnchor = (): Pick<LangSwitchScroll, "id" | "progress"> => {
+    const offset = headerHeight()
+    let current: HTMLElement | null = null
+    for (const section of document.querySelectorAll<HTMLElement>("main section[id]")) {
+      if (section.getBoundingClientRect().top <= offset + 1) current = section
     }
+    if (!current) {
+      const range = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      return { id: null, progress: window.scrollY / range }
+    }
+    const rect = current.getBoundingClientRect()
+    return { id: current.id, progress: clamp01((offset - rect.top) / rect.height) }
+  }
 
-    const observer = new IntersectionObserver(callback, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.3,
-    })
+  const anchorTop = (saved: LangSwitchScroll) => {
+    const offset = headerHeight()
+    const el = saved.id ? document.getElementById(saved.id) : null
+    const target =
+      saved.id && el
+        ? el.getBoundingClientRect().top + window.scrollY + saved.progress * el.offsetHeight - offset
+        : saved.progress * (document.documentElement.scrollHeight - window.innerHeight)
+    return Math.max(0, target)
+  }
 
-    sections.forEach((section) => {
-      observer.observe(section)
-    })
+  const reapplyScroll = () => {
+    const saved = (window as Window & { __langScroll?: LangSwitchScroll | null }).__langScroll
+    if (!saved || saved.path !== location.pathname) return
+    const target = anchorTop(saved)
+    if (Math.abs(target - window.scrollY) > 2) {
+      window.scrollTo({ top: target, behavior: "instant" })
+    }
+    if (location.hash) {
+      history.replaceState(null, "", location.pathname + location.search)
+    }
+  }
 
-    // Cleanup function
-    document.onvisibilitychange = () => {
-      if (document.visibilityState === "hidden") {
-        observer.disconnect()
-      } else {
-        sections.forEach((section) => {
-          observer.observe(section)
-        })
+  if (document.readyState === "complete") reapplyScroll()
+  else window.addEventListener("load", reapplyScroll, { once: true })
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-set-lang]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const lang = link.dataset.setLang
+      if (lang !== "es" && lang !== "en") return
+      try {
+        localStorage.setItem("lang", lang)
+      } catch {
+        /* ignore storage failures */
       }
-    }
+      const { id, progress } = currentAnchor()
+      const path = new URL(link.href, location.origin).pathname
+      try {
+        const payload: LangSwitchScroll = { path, id, progress }
+        sessionStorage.setItem("lang-switch-scroll", JSON.stringify(payload))
+      } catch {
+        /* ignore storage failures */
+      }
+    })
   })
 </script>
-
-<style>
-    nav {
-        animation: nav-shadown 1s linear both;
-        animation-timeline: scroll();
-        animation-range: 0 100px;
-    }
-
-    @keyframes nav-shadown {
-        to {
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            border: 1px solid rgb(255 255 255 / 0.1);
-            backdrop-filter: blur(12px);
-            background-color: rgb(255 255 255 / 0.5);
-            padding: 0.25rem 0.75rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            border-radius: 9999px;
-        }
-    }
-
-    @media (prefers-color-scheme: dark) {
-        @keyframes nav-shadown {
-            to {
-                box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-                border: 1px solid rgb(255 255 255 / 0.1);
-                background-color: rgb(31 41 55 / 0.9);
-                backdrop-filter: blur(12px);
-                padding: 0.25rem 0.75rem;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                border-radius: 9999px;
-            }
-        }
-    }
-</style>

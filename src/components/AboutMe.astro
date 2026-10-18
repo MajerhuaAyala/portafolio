@@ -1,26 +1,33 @@
 ---
- import config from "./confing"
- const personalImageAlt = "Marcelino Majerhua"
+import type { Dictionary } from "@/i18n/types"
 
+interface Props {
+  about: Dictionary["about"]
+}
+
+const { about } = Astro.props
 ---
 
-<article class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
-  <div
-    class="[&>p]:mb-4 [&>p>strong]:text-yellow-500 dark:[&>p>strong]:text-yellow-100 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
-  >
-      <p>
-          Mi nombre es Marcelino Majerhua Ayala, y mi trayectoria en la programación comenzó hace <strong> más de 4 años. </strong>
-          En la actualidad, formo parte de un equipo en <a href="https://www.linkedin.com/company/trdlatam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="text-yellow-600 no-underline hover:text-yellow-800 dark:text-yellow-400 dark:hover:text-yellow-200 font-semibold">TRD</a>, donde me dedico a asegurar la <strong>calidad, escalabilidad y resiliencia</strong> en el desarrollo de soluciones backend.
-      </p>
-
-      <p>
-          Entre mis logros se destaca <strong>mi colaboración en la migración de una arquitectura monolítica a una basada en microservicios en Rimac Seguros</strong>.
-      </p>
-      <p>
-          He fomentado y estandarizado el uso de CI/CD para los diferentes proyectos de TRD. Reduciendo el tiempo de entrega y los errores.
-      </p>
+<section id="sobre-mi" class="shell py-16 md:py-24">
+  <h2 class="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.02em] text-ink">
+    {about.title}
+  </h2>
+  <div class="mt-8 grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+    <div class="min-w-0 space-y-4 font-body text-lg leading-relaxed text-pretty text-ink">
+      {about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="min-w-0">
+      <h3 class="kicker">{about.valuesTitle}</h3>
+      <ol class="mt-4 space-y-5">
+        {
+          about.values.map((value) => (
+            <li>
+              <p class="font-display text-lg font-semibold tracking-[-0.02em] text-ink">{value.title}</p>
+              <p class="mt-1 font-body leading-relaxed text-pretty text-slate">{value.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </div>
-
-  <img width="200" height="200" src=`${config.BASE_URL}/me.webp` alt={personalImageAlt} class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20 " style="object-position: 50% 50%">
-
-</article>
+</section>

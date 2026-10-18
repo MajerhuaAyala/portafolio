@@ -1,0 +1,54 @@
+---
+import type { Project } from "@/i18n/types"
+import type { PublicImage } from "@/lib/imageMeta"
+import { stripMarks } from "@/lib/marked"
+
+interface Props {
+  project: Project
+  cover: PublicImage
+  href: string
+  viewCase: string
+}
+
+const { project, cover, href, viewCase } = Astro.props
+const titleId = `project-${project.slug}`
+---
+
+<a
+  href={href}
+  class="project-card flex h-full min-w-0 flex-col rounded-[12px] border border-rule bg-surface p-3"
+  aria-labelledby={titleId}
+>
+  <div class="overflow-hidden rounded-[12px] border border-rule">
+    <img
+      src={cover.src}
+      alt={project.coverAlt}
+      width={cover.width}
+      height={cover.height}
+      loading="lazy"
+      decoding="async"
+      class="aspect-[16/10] w-full object-cover"
+    />
+  </div>
+  <div class="flex flex-1 flex-col px-1 pb-1 pt-4">
+    <p class="kicker">
+      {project.sector}
+      {
+        project.client && (
+          <>
+            <span aria-hidden="true"> · </span>
+            {project.client}
+          </>
+        )
+      }
+    </p>
+    <h3 id={titleId} class="mt-2 font-display text-xl font-semibold tracking-[-0.02em] text-ink">
+      {project.title}
+    </h3>
+    <p class="mt-2 font-body leading-relaxed text-pretty text-ink">{stripMarks(project.summary)}</p>
+    <p class="mt-4 font-mono text-xs font-medium uppercase tracking-[0.12em] text-ink">
+      {viewCase}
+      <span aria-hidden="true"> →</span>
+    </p>
+  </div>
+</a>
