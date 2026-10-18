@@ -1,0 +1,28 @@
+---
+import AboutMe from "@/components/AboutMe.astro"
+import Brands from "@/components/Brands.astro"
+import Contact from "@/components/Contact.astro"
+import Experience from "@/components/Experience.astro"
+import Hero from "@/components/Hero.astro"
+import Projects from "@/components/Projects.astro"
+import Skills from "@/components/Skills.astro"
+import { getDictionary, locales, type Locale } from "@/i18n"
+import Layout from "@/layouts/Layout.astro"
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
+const locale = Astro.params.lang as Locale
+const dict = getDictionary(locale)
+---
+
+<Layout locale={locale} dict={dict} mobileBar>
+  <Hero hero={dict.hero} contact={dict.contact} />
+  <Brands brands={dict.brands} />
+  <Projects locale={locale} projects={dict.projects} />
+  <Experience locale={locale} experience={dict.experience} />
+  <Skills skills={dict.skills} />
+  <AboutMe about={dict.about} />
+  <Contact hero={dict.hero} contact={dict.contact} />
+</Layout>

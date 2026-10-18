@@ -1,118 +1,77 @@
 ---
-import "@fontsource-variable/onest"
 import "../styles/global.css"
-
+import { type Locale } from "@/i18n"
+import type { Dictionary } from "@/i18n/types"
+import { localePath, withBase } from "@/lib/paths"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
-import { ClientRouter } from "astro:transitions"
+import MobileBar from "../components/MobileBar.astro"
 
 interface Props {
-  title: string
-  description: string
+  locale: Locale
+  dict: Dictionary
+  title?: string
+  description?: string
+  /** Path after the locale segment, without slashes. Example: "proyectos/multicines". */
+  alternatePath?: string
+  mobileBar?: boolean
 }
 
-import config from "../components/confing"
-
-const { description, title } = Astro.props
+const { locale, dict, title, description, alternatePath = "", mobileBar = false } = Astro.props
+const site = Astro.site ?? new URL("https://majerhuaayala.github.io")
+const pageTitle = title ?? dict.meta.title
+const pageDescription = description ?? dict.meta.description
+const canonical = new URL(localePath(locale, alternatePath), site).href
+const alternateEs = new URL(localePath("es", alternatePath), site).href
+const alternateEn = new URL(localePath("en", alternatePath), site).href
+const fontHref =
+  "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@600;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale} data-theme="system">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href=`${config.BASE_URL}/favicon.svg` />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" type="image/svg+xml" href={withBase("favicon.svg")} />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <ClientRouter />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={alternateEs} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={alternateEs} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fontHref} />
+    <link rel="expect" href="#site-footer" blocking="render" />
+    <script is:inline>
+      document.documentElement.classList.add("js")
+      ;(function () {
+        var theme = "system"
+        try {
+          theme = localStorage.getItem("theme") || "system"
+        } catch (e) {}
+        if (theme !== "light" && theme !== "dark" && theme !== "system") theme = "system"
+        var dark =
+          theme === "dark" ||
+          (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        document.documentElement.classList.toggle("dark", dark)
+        document.documentElement.dataset.theme = theme
+      })()
+    </script>
   </head>
-
-  <body class="relative text-black dark:text-white">
-    <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-gray-950
-      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
-      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
-    </div>
-    <Header />
-    <slot />
-    <Footer />
-    <style is:global>
-      :root {
-        color-scheme: light dark;
-      }
-
-      html {
-        font-family: "Onest Variable", system-ui, sans-serif;
-        scroll-behavior: smooth;
-      }
-
-      body {
-        color: rgba(17, 17, 17, 0.9);
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        overscroll-behavior: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        body {
-          color: rgba(255, 255, 255, 0.9);
-        }
-      }
-
-      #header-nav {
-        animation: blur linear both 0.5s;
-        animation-timeline: scroll();
-        animation-range: 0 500px;
-      }
-
-      @keyframes blur {
-        to {
-          backdrop-filter: blur(20px);
-          border-width: 1px;
-          border-color: rgba(0, 0, 0);
-          padding: 0.25rem 0.75rem;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          background-color: rgb(229, 229, 229);
-          border-radius: 9999px;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        @keyframes blur {
-          from {
-            border: 0px;
-          }
-          to {
-            box-shadow:
-              0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-              0px 0px 0 1px rgba(0, 0, 0, 0.3);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            border-width: 1px;
-            border-color: rgba(0, 0, 0);
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 9999px;
-          }
-        }
-      }
-    </style>
+  <body
+    class:list={[
+      "flex min-h-dvh flex-col overflow-x-clip bg-paper font-body text-ink antialiased",
+      mobileBar && "has-mobile-bar",
+    ]}
+  >
+    <Header locale={locale} dict={dict} alternatePath={alternatePath} />
+    <main id="content" tabindex="-1" class="flex-1">
+      <slot />
+    </main>
+    <Footer dict={dict} />
+    {mobileBar && <MobileBar dict={dict} />}
   </body>
 </html>

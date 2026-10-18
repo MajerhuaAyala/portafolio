@@ -1,11 +1,144 @@
 ---
-const { urls = [] } = Astro.props;
+import type { Dictionary } from "@/i18n/types"
+import type { PublicImage } from "@/lib/imageMeta"
+
+interface Props {
+  images: PublicImage[]
+  alt: string
+  heading: string
+  lightbox: Dictionary["ui"]["lightbox"]
+}
+
+const { images, alt, heading, lightbox } = Astro.props
+const total = images.length
+const first = images[0]
 ---
 
-<div class="grid grid-cols-1 gap-6">
-    {urls.map((url: string, index: number) => (
-      <div>
-          <img class="h-auto max-w-full rounded-lg" src={url} alt={`Gallery image ${index + 1}`} />
-      </div>
-    ))}
-</div>
+<section class="mt-12" aria-labelledby="gallery-title" data-gallery>
+  <h2 id="gallery-title" class="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">
+    {heading}
+  </h2>
+  <ul class="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3">
+    {
+      images.map((image, index) => (
+        <li>
+          <button
+            type="button"
+            class="block w-full rounded-[12px]"
+            data-lightbox-open
+            data-index={index}
+            aria-label={`${alt} ${index + 1}`}
+          >
+            <img
+              src={image.src}
+              alt={alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              decoding="async"
+              class="aspect-[16/10] w-full rounded-[12px] border border-rule object-cover"
+            />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    first && (
+      <dialog class="lightbox" data-lightbox data-of={lightbox.of} aria-labelledby="gallery-title">
+        <div class="lightbox-figure">
+          <img
+            data-lightbox-image
+            src={first.src}
+            alt={alt}
+            width={first.width}
+            height={first.height}
+          />
+          <div class="lightbox-controls">
+            <button type="button" data-lightbox-prev disabled>
+              {lightbox.previous}
+            </button>
+            <p class="min-w-16 text-center font-mono text-xs tracking-[0.08em]" data-lightbox-counter aria-live="polite">
+              1 {lightbox.of} {total}
+            </p>
+            <button type="button" data-lightbox-next disabled={total <= 1}>
+              {lightbox.next}
+            </button>
+            <button type="button" data-lightbox-close>{lightbox.close}</button>
+          </div>
+        </div>
+      </dialog>
+    )
+  }
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
+    const dialog = gallery.querySelector<HTMLDialogElement>("[data-lightbox]")
+    const image = gallery.querySelector<HTMLImageElement>("[data-lightbox-image]")
+    const counter = gallery.querySelector<HTMLElement>("[data-lightbox-counter]")
+    const prev = gallery.querySelector<HTMLButtonElement>("[data-lightbox-prev]")
+    const next = gallery.querySelector<HTMLButtonElement>("[data-lightbox-next]")
+    const close = gallery.querySelector<HTMLButtonElement>("[data-lightbox-close]")
+    const buttons = [...gallery.querySelectorAll<HTMLButtonElement>("[data-lightbox-open]")]
+    if (!dialog || !image || buttons.length === 0) return
+
+    const ofWord = dialog.dataset.of ?? ""
+    let index = 0
+    let opener: HTMLButtonElement | null = null
+
+    const render = (nextIndex: number) => {
+      const button = buttons[nextIndex]
+      const source = button?.querySelector("img")
+      if (!button || !source) return
+      index = nextIndex
+      image.src = source.getAttribute("src") ?? ""
+      image.alt = source.alt
+      const width = source.getAttribute("width")
+      const height = source.getAttribute("height")
+      if (width) image.width = Number(width)
+      if (height) image.height = Number(height)
+      if (counter) counter.textContent = `${index + 1} ${ofWord} ${buttons.length}`
+      if (prev) prev.disabled = index === 0
+      if (next) next.disabled = index === buttons.length - 1
+    }
+
+    buttons.forEach((button, buttonIndex) => {
+      button.addEventListener("click", () => {
+        opener = button
+        render(buttonIndex)
+        dialog.showModal()
+      })
+    })
+
+    prev?.addEventListener("click", () => {
+      if (index > 0) render(index - 1)
+    })
+    next?.addEventListener("click", () => {
+      if (index < buttons.length - 1) render(index + 1)
+    })
+    close?.addEventListener("click", () => dialog.close())
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close()
+    })
+
+    dialog.addEventListener("close", () => {
+      const target = opener
+      opener = null
+      target?.focus()
+    })
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" && index > 0) {
+        event.preventDefault()
+        render(index - 1)
+      }
+      if (event.key === "ArrowRight" && index < buttons.length - 1) {
+        event.preventDefault()
+        render(index + 1)
+      }
+    })
+  })
+</script>

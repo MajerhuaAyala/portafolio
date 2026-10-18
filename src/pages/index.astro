@@ -1,63 +1,59 @@
 ---
-import Layout from "@/layouts/Layout.astro"
+import { localizedPath } from "@/i18n"
+import { withBase } from "@/lib/paths"
 
-import AboutMe from "@/components/AboutMe.astro"
-import Briefcase from "@/components/icons/Briefcase.astro"
-import CodeIcon from "@/components/icons/Code.astro"
-import Experience from "@/components/Experience.astro"
-import ProfileCheck from "@/components/icons/ProfileCheck.astro"
-import Projects from "@/components/Projects.astro"
-import SectionContainer from "@/components/SectionContainer.astro"
-import Hero from "@/components/Hero.astro"
-import SocialPill from "../components/SocialPill.astro";
-import CV from "../components/icons/CV.astro"
-import config from "../components/confing"
+const paths = {
+  es: localizedPath("es"),
+  en: localizedPath("en"),
+}
+const site = Astro.site ?? new URL("https://majerhuaayala.github.io")
+const alternateEs = new URL(paths.es, site).href
+const alternateEn = new URL(paths.en, site).href
+const canonical = new URL(withBase(""), site).href
 ---
 
-<Layout
-  title="Portafolio de Marcelino - Desarrollador y Programador Backend con más de 4 años de experiencia"
-  description="Contrata a Marcelino para desarrollar tu aplicación backend. Especializado en crear aplicaciones escalables y de alta calidad."
->
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
-    </SectionContainer>
-    <div class="space-y-24">
-    <SectionContainer id="experiencia">
-        <div class="flex items-center gap-4">
-            <h2 class="flex items-center text-3xl font-semibold text-black/80 dark:text-white">
-                <Briefcase class="size-8 mr-3" />
-                Experiencia laboral
-            </h2>
-            <SocialPill href=`${config.BASE_URL}/marcelino_majerhua_ayala_cv.pdf` download="marcelino_majerhua_ayala_cv.pdf">
-                <CV/>
-                Descargar curriculum
-            </SocialPill>
-        </div>
-      <Experience />
-    </SectionContainer>
-
-    <SectionContainer id="proyectos">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white"
-      >
-        <CodeIcon class="size-7" />
-        Proyectos
-      </h2>
-      <Projects />
-    </SectionContainer>
-
-    <SectionContainer id="sobre-mi">
-      <h2
-        class="flex items-center mb-6 text-3xl font-semibold gap-x-8 text-black/80 dark:text-white"
-      >
-        <ProfileCheck class="size-8" />
-        Sobre mí
-      </h2>
-      <AboutMe />
-    </SectionContainer>
-  </div>
-  </main>
-</Layout>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Marcelino Majerhua Ayala</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={alternateEs} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    <script is:inline define:vars={{ paths }}>
+      ;(function () {
+        var lang = "en"
+        try {
+          var stored = localStorage.getItem("lang")
+          if (stored === "es" || stored === "en") {
+            lang = stored
+          } else {
+            var list =
+              navigator.languages && navigator.languages.length
+                ? navigator.languages
+                : [navigator.language || ""]
+            var prefersEs = false
+            for (var i = 0; i < list.length; i++) {
+              if (String(list[i] || "").toLowerCase().indexOf("es") === 0) {
+                prefersEs = true
+                break
+              }
+            }
+            lang = prefersEs ? "es" : "en"
+          }
+        } catch (e) {
+          lang = "en"
+        }
+        location.replace(paths[lang])
+      })()
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <a href={paths.es} hreflang="es">ES</a>
+      <a href={paths.en} hreflang="en">EN</a>
+    </noscript>
+  </body>
+</html>

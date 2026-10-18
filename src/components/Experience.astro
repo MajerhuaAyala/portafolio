@@ -1,53 +1,55 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
-const EXPERIENCIE = [
-  {
-    date: "Octubre 2024 - actualmente",
-    title: "Desarrollador Back End",
-    company: "TRD - Trade Ecuador",
-    description:
-    `Encargado del análisis, diseño, implementación, pruebas y despliegue de soluciones de comercio electrónico de 
-    alta demanda. Contribuí al desarrollo de plataformas como Multicines, Dunkin Donuts y aplicaciones de 
-    ticketing para equipos deportivos como IDV y LDU, así como sistemas de suscripción y reserva en línea. 
-    Poseo amplio conocimiento en flujos de pago, habiendo trabajado con soluciones como Pago Plux, Mercado Pago, 
-    Place to Pay, Pago por Puntos, entre otros. Trabajo con arquitecturas basadas en microservicios y utilizo tecnologías como 
-    AWS Lambda, API Gateway, DynamoDB, SQS, SNS, EventBridge, ECS, EC2, VPC y AWS SAM.`
-  },
-  {
-    date: "Mayo 2024 - Octubre 2024",
-    title: "Desarrollador Back End",
-    company: "Indra",
-    description:
-    `Fui responsable del diseño y optimización de microservicios, aplicando arquitecturas escalables con NestJS, 
-    AWS (SQS, SNS, EventBridge, Step Functions, DynamoDB), Kafka y MySQL. Implementé CI/CD con Jenkins, CodePipeline y 
-    GitHub Actions, gestioné infraestructura con CloudFormation y colaboré en la formación de equipos técnicos.`
-  },
-  {
-    date: "Febrero 2021 - Mayo 2024",
-    title: "Desarrollador Back End",
-    company: "Iotecnova",
-    description:
-      `Responsable de gestionar y desarrollar microservicios, utilizando tecnologías como NestJS, Python, AWS, Firebase, MySQL, entre otras. 
-      Implementé soluciones automatizadas que redujeron errores. Coordiné equipos multidisciplinarios para alinear la infraestructura con las necesidades del negocio.`
-  },
-  {
-    date: "Junio 2020 - Enero 2021",
-    title: "Desarrollador BackEnd",
-    company: "Kybernet ",
-    description:
-      `Encargado del desarrollo full stack de aplicaciones web, asegurando la calidad y el rendimiento en todas las capas del sistema. Implementé automatizaciones en 
-      flujos de trabajo y despliegue, mejorando la velocidad de entrega de nuevas funcionalidades. Trabajé con equipos de backend, frontend y producto para crear soluciones 
-      alineadas con los requisitos del usuario y del negocio.`
-  },
-]
+import type { Locale } from "@/i18n"
+import type { Dictionary } from "@/i18n/types"
+import { formatDuration, formatPeriod, monthsBetween } from "@/lib/duration"
+import Marked from "./Marked.astro"
+
+interface Props {
+  locale: Locale
+  experience: Dictionary["experience"]
+}
+
+const { locale, experience } = Astro.props
+const builtAt = new Date()
+const entries = experience.items.map((item) => ({
+  ...item,
+  period: formatPeriod(item.start, item.end, experience.present, locale),
+  tenure: formatDuration(monthsBetween(item.start, item.end, builtAt), experience.units),
+}))
 ---
 
-<ol class="relative mt-16">
-  {
-    EXPERIENCIE.map((experiencie) => (
-            <li class="">
-                <ExperienceItem {...experiencie}/>
-            </li>
-    ))
-  }
-</ol>
+<section id="experiencia" class="shell py-16 md:py-24">
+  <h2 class="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.02em] text-ink">
+    {experience.title}
+  </h2>
+  <p class="mt-3 max-w-2xl font-body text-lg leading-relaxed text-pretty text-slate">{experience.intro}</p>
+
+  <ol class="timeline mt-10">
+    {
+      entries.map((item) => (
+        <li>
+          <h3 class="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">{item.company}</h3>
+          <p class="mt-1 font-body text-lg text-ink">{item.role}</p>
+          <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span class="font-mono text-xs text-slate">{item.period}</span>
+            <span class="tenure">{item.tenure}</span>
+            {item.location && <span class="font-mono text-xs text-slate">{item.location}</span>}
+          </p>
+          <p class="mt-4 max-w-3xl font-body leading-relaxed text-pretty text-ink">{item.summary}</p>
+          {item.achievements.length > 0 && (
+            <ul class="mt-3 list-disc space-y-2 pl-5 font-body leading-relaxed text-ink">
+              {item.achievements.map((achievement) => (
+                <li>
+                  <Marked text={achievement} />
+                </li>
+              ))}
+            </ul>
+          )}
+          {item.technologies.length > 0 && (
+            <p class="mt-4 font-mono text-xs leading-5 text-slate">{item.technologies.join(" · ")}</p>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</section>

@@ -1,0 +1,33 @@
+---
+import type { Dictionary } from "@/i18n/types"
+import { withBase } from "@/lib/paths"
+
+interface Props {
+  dict: Dictionary
+}
+
+const { dict } = Astro.props
+const cvHref = withBase(dict.contact.cvFile)
+---
+
+<div class="mobile-bar" data-mobile-bar>
+  <div class="mx-auto grid w-full max-w-[72rem] grid-cols-2 gap-2">
+    <a class="btn btn-primary" href={cvHref} download>{dict.hero.ctaCv}</a>
+    <a class="btn btn-secondary" href={`mailto:${dict.contact.email}`}>{dict.hero.ctaEmail}</a>
+  </div>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>("[data-mobile-bar]")
+  const contact = document.getElementById("contacto")
+
+  if (bar && contact && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry) return
+      const hide = entry.isIntersecting
+      bar.toggleAttribute("hidden", hide)
+      document.body.classList.toggle("has-mobile-bar", !hide)
+    })
+    observer.observe(contact)
+  }
+</script>

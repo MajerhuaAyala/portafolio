@@ -1,0 +1,34 @@
+---
+import type { Dictionary } from "@/i18n/types"
+import { withBase } from "@/lib/paths"
+
+interface Props {
+  hero: Dictionary["hero"]
+  contact: Dictionary["contact"]
+}
+
+const { hero, contact } = Astro.props
+const cvHref = withBase(contact.cvFile)
+---
+
+<section id="contacto" class="band bg-ink text-paper">
+  <div class="shell py-16 md:py-28">
+    <h2 class="max-w-4xl font-display text-[clamp(2.25rem,6vw,4.5rem)] font-extrabold leading-[0.95] tracking-[-0.02em] text-balance">
+      {contact.title}
+    </h2>
+    <p class="mt-6 max-w-2xl font-body text-lg leading-relaxed text-pretty">{contact.text}</p>
+    <a
+      class="mt-8 block max-w-full font-display text-[clamp(1.7rem,4.6vw,3.4rem)] font-semibold leading-[1.05] tracking-[-0.02em] break-all underline decoration-1 underline-offset-[0.12em]"
+      href={`mailto:${contact.email}`}
+    >
+      {contact.email}
+    </a>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href={cvHref} download>{hero.ctaCv}</a>
+      <a class="btn btn-secondary" href={contact.linkedinUrl} rel="noreferrer" target="_blank">
+        {hero.ctaLinkedin}
+      </a>
+    </div>
+    <p class="mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em]">{contact.location}</p>
+  </div>
+</section>
